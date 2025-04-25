@@ -6,13 +6,13 @@
 				<content>
 					<FlexBox width="100%" height="100%" alignItems="Center" justifyContent="Center">
 						<items>
-							<GenericTile backgroundImage="Image/Tile4.jpg" header="Create Gate Pass" press="presCreateGp"
+							<GenericTile backgroundImage="{imageModel>/path}/Image/tile5.jpg" header="Create Gate Pass" press="presCreateGp"
 								class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 								<TileContent>
 									<core:Icon src="sap-icon://visits" size="4rem"/>
 								</TileContent>
 							</GenericTile>
-							<GenericTile backgroundImage="Image/tile5.jpg" header="Change/Display Gate Pass" press="pressCHaDelGp"
+							<GenericTile backgroundImage="{imageModel>/path}/Image/tile5.jpg" header="Change/Display Gate Pass" press="pressCHaDelGp"
 								class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 								<TileContent>
 									<core:Icon src="sap-icon://employee-approvals" size="4rem"/>

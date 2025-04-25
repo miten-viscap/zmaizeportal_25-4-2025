@@ -1,2 +1,200 @@
-sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/routing/History","sap/ui/core/UIComponent","sap/ui/model/Filter","sap/ui/model/FilterOperator"],function(e,a,t,r,i){"use strict";var n;var o;var s;return e.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.ChaDispGpList",{onInit:function(){var e="/sap/opu/odata/sap/ZGW_GATEPASS_SRV/";n=new sap.ui.model.odata.ODataModel(e);this.getView().setModel(n);var a=sap.ui.core.UIComponent.getRouterFor(this);a.getRoute("ChaDispGpList").attachPatternMatched(this._onObjectMatched,this);var t=window.localStorage.setItem("key1",a.oHashChanger.hash)},onNavBack:function(){var e=t.getRouterFor(this);e.navTo("ChanDispSelectScreen")},_onObjectMatched:function(e){var a=e.getParameter("arguments").invoicePath;o=a;var t=e.getParameter("arguments").invoicePath1;var r=e.getParameter("arguments").invoicePath2;var n=e.getParameter("arguments").invoicePath3;var l=e.getParameter("arguments").invoicePath5;var v=e.getParameter("arguments").invoicePath6;s=e.getParameter("arguments").invoicePath7;var p=e.getParameter("arguments").invoicePath8;var u=e.getParameter("arguments").invoicePath9;var m="1111-11-11T12:00:00";var d=[];if(a&&a.length>0){if(n==m&&r==m){n="";r="";var c=new sap.ui.model.Filter("Werks",i.EQ,a);var g=new sap.ui.model.Filter("Vendorno",i.EQ,t);var h=new sap.ui.model.Filter("Matnr",i.EQ,l);var P=new sap.ui.model.Filter("Ebeln",i.EQ,v);var F=new sap.ui.model.Filter("Gpassdt",i.EQ,u);var w=new sap.ui.model.Filter("Gpassno",i.EQ,p);d.push(c,g,h,P,F,w)}else if(n==m){n="";var E=new sap.ui.model.Filter("Werks",i.EQ,a);var Q=new sap.ui.model.Filter("Vendorno",i.EQ,t);var C=new sap.ui.model.Filter("Bedat",i.EQ,r);var G=new sap.ui.model.Filter("Matnr",i.EQ,l);var f=new sap.ui.model.Filter("Ebeln",i.EQ,v);var F=new sap.ui.model.Filter("Gpassdt",i.EQ,u);var w=new sap.ui.model.Filter("Gpassno",i.EQ,p);d.push(E,Q,C,G,f,F,w)}else{var E=new sap.ui.model.Filter("Werks",i.EQ,a);var Q=new sap.ui.model.Filter("Vendorno",i.EQ,t);var C=new sap.ui.model.Filter("Bedat",i.BT,r,n);var G=new sap.ui.model.Filter("Matnr",i.EQ,l);var f=new sap.ui.model.Filter("Ebeln",i.EQ,v);var F=new sap.ui.model.Filter("Gpassdt",i.EQ,u);var w=new sap.ui.model.Filter("Gpassno",i.EQ,p);d.push(E,Q,C,G,f,F,w)}}var M=this.byId("GPList");var S=M.getBinding("items");S.filter(d,"Application")},ChangeGP:function(e){var a=this;this._item=e.getSource().getBindingContext().getObject();var t=this._item;var r=t.Gpassno;var i="X";var n=sap.ui.core.UIComponent.getRouterFor(a);n.navTo("ChanDispScreen",{GPManifest:r,FlagChaDisp:i,SelMatCode:s})},DisplayGP:function(e){this._item=e.getSource().getBindingContext().getObject();var a=this._item;var t=a.Gpassno;var r="Y";var i=this;var n=sap.ui.core.UIComponent.getRouterFor(i);n.navTo("ChanDispScreen",{GPManifest:t,FlagChaDisp:r})}})});
-//# sourceMappingURL=ChaDispGpList.controller.js.map
+sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/routing/History",
+	"sap/ui/core/UIComponent",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (Controller, History, UIComponent, Filter, FilterOperator) {
+	"use strict";
+	var oModel;
+	var Plantnumber;
+	var Mat_Code;
+
+	return Controller.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.ChaDispGpList", {
+
+		/**
+		 * Called when a controller is instantiated and its View controls (if available) are already created.
+		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChaDispGpList
+		 */
+		onInit: function () {
+			var serviceURl = "/sap/opu/odata/sap/ZGW_GATEPASS_SRV/";
+			oModel = new sap.ui.model.odata.ODataModel(serviceURl);
+			this.getView().setModel(oModel);
+			// oModel.setSizeLimit(5000);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("ChaDispGpList").attachPatternMatched(this._onObjectMatched, this);
+
+			var uname = window.localStorage.setItem("key1", oRouter.oHashChanger.hash);
+
+		},
+		onNavBack: function () {
+			var oRouter = UIComponent.getRouterFor(this);
+			oRouter.navTo("ChanDispSelectScreen");
+			/*	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("Create_Compliance_Repository", null, true);*/
+			/*	var oHistory = History.getInstance();
+				var sPreviousHash = oHistory.getPreviousHash();
+				if (sPreviousHash !== undefined) {
+					window.history.go(-1);
+				} else {
+					var oRouter = UIComponent.getRouterFor(this);
+					oRouter.navTo("TargetView1");
+				}*/
+		},
+		_onObjectMatched: function (oEvent) {
+			var PlantVal = oEvent.getParameter("arguments").invoicePath;
+			Plantnumber = PlantVal;
+			var VendVal = oEvent.getParameter("arguments").invoicePath1;
+			var POFrom = oEvent.getParameter("arguments").invoicePath2;
+			var POTo = oEvent.getParameter("arguments").invoicePath3;
+			var MatCode = oEvent.getParameter("arguments").invoicePath5;
+			var PoNum = oEvent.getParameter("arguments").invoicePath6;
+			Mat_Code = oEvent.getParameter("arguments").invoicePath7;
+			var GpNum = oEvent.getParameter("arguments").invoicePath8;
+			var GpDate = oEvent.getParameter("arguments").invoicePath9;
+
+			/*var a = oModel.read("/polistSet?$filter=Werks eq '" + PlantVal + "'and Lifnr eq '" + VendVal + "'and (Bedat ge datetime'" +
+				POFrom + "'and Bedat le datetime'" + POTo + "')and Matnr eq '" + MatCode + "'and Ebeln eq '" + PoNum + "'");*/
+			var date = "1111-11-11T12:00:00";
+			var aFilters = [];
+			if (PlantVal && PlantVal.length > 0) {
+				if (POTo == date && POFrom == date) {
+					POTo = "";
+					POFrom = "";
+					// var Filter3 = new sap.ui.model.Filter("Bedat", FilterOperator.EQ, POFrom);
+					var Filter1 = new sap.ui.model.Filter("Werks", FilterOperator.EQ, PlantVal);
+					var Filter2 = new sap.ui.model.Filter("Vendorno", FilterOperator.EQ, VendVal);
+					//	var Filter3 = new sap.ui.model.Filter("Bedat", FilterOperator.BT, POFrom, POTo);
+					//	var Filter4 = new sap.ui.model.Filter("Bedat", FilterOperator.EQ, POTo);
+					var Filter5 = new sap.ui.model.Filter("Matnr", FilterOperator.EQ, MatCode);
+					var Filter6 = new sap.ui.model.Filter("Ebeln", FilterOperator.EQ, PoNum);
+					var Filter7 = new sap.ui.model.Filter("Gpassdt", FilterOperator.EQ, GpDate);
+					var Filter8 = new sap.ui.model.Filter("Gpassno", FilterOperator.EQ, GpNum);
+					aFilters.push(Filter1, Filter2, Filter5, Filter6, Filter7, Filter8);
+				} else if (POTo == date) {
+					POTo = "";
+					var Filter11 = new sap.ui.model.Filter("Werks", FilterOperator.EQ, PlantVal);
+					var Filter22 = new sap.ui.model.Filter("Vendorno", FilterOperator.EQ, VendVal);
+					//var Filter33 = new sap.ui.model.Filter("Bedat", FilterOperator.BT, POFrom, POTo);
+					var Filter33 = new sap.ui.model.Filter("Bedat", FilterOperator.EQ, POFrom);
+					var Filter55 = new sap.ui.model.Filter("Matnr", FilterOperator.EQ, MatCode);
+					var Filter66 = new sap.ui.model.Filter("Ebeln", FilterOperator.EQ, PoNum);
+					var Filter7 = new sap.ui.model.Filter("Gpassdt", FilterOperator.EQ, GpDate);
+					var Filter8 = new sap.ui.model.Filter("Gpassno", FilterOperator.EQ, GpNum);
+					aFilters.push(Filter11, Filter22, Filter33, Filter55, Filter66, Filter7, Filter8);
+				} else {
+					var Filter11 = new sap.ui.model.Filter("Werks", FilterOperator.EQ, PlantVal);
+					var Filter22 = new sap.ui.model.Filter("Vendorno", FilterOperator.EQ, VendVal);
+					var Filter33 = new sap.ui.model.Filter("Bedat", FilterOperator.BT, POFrom, POTo);
+					//	var Filter4 = new sap.ui.model.Filter("Bedat", FilterOperator.EQ, POTo);
+					var Filter55 = new sap.ui.model.Filter("Matnr", FilterOperator.EQ, MatCode);
+					var Filter66 = new sap.ui.model.Filter("Ebeln", FilterOperator.EQ, PoNum);
+					var Filter7 = new sap.ui.model.Filter("Gpassdt", FilterOperator.EQ, GpDate);
+					var Filter8 = new sap.ui.model.Filter("Gpassno", FilterOperator.EQ, GpNum);
+					aFilters.push(Filter11, Filter22, Filter33, Filter55, Filter66, Filter7, Filter8);
+				}
+			}
+			var GP_Table = this.byId("GPList");
+			var binding = GP_Table.getBinding("items");
+			binding.filter(aFilters, "Application");
+			/*	var bindingelement = binding.aKeys.length;
+				if (bindingelement == 0) {
+					sap.m.MessageToast.show("Following Combinations does not have any data");
+					// this.onNavBack();
+				} else {
+					binding.filter(aFilters, "Application");
+				}*/
+			// var PO_Table = this.byId("POList");
+			// var bind = PO_Table.bindItems({
+			// 	path: "/polistSet?$filter=Werks eq '" + PlantVal + "'and Lifnr eq '" + VendVal + "'and (Bedat ge datetime'" +
+			// 		POFrom + "'and Bedat le datetime'" + POTo + "')and Matnr eq '" + MatCode + "'and Ebeln eq '" + PoNum + "'"
+			// });
+
+		},
+		ChangeGP: function (oEvent) {
+
+			var oThis = this;
+			this._item = oEvent.getSource().getBindingContext().getObject();
+			// Get the selected Item 
+			var oOrgUnit = this._item;
+			// Get the OrgUnit ID 
+			var GPNum = oOrgUnit.Gpassno;
+			// var POLine = oOrgUnit.Ebelp;
+			// var oEntry = {
+			// 	"Ebeln": PONum,
+			// 	"Werks": Plantnumber
+
+			// };
+			var flag = "X";
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(oThis);
+			oRouter.navTo("ChanDispScreen", {
+				GPManifest: GPNum,
+				FlagChaDisp: flag,
+				SelMatCode: Mat_Code
+			});
+			/*	var hdrMessage = Response.headers["sap-message"];
+				sap.m.MessageToast.show(hdrMessage);*/
+			/*	oModel.read("/GatepassdtlSet(Gpassno='" + GPNum + "')", {
+				success: function (data, response) {
+					// sap.m.MessageToast.show("success");
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(oThis);
+					oRouter.navTo("IndividualGpScreen", {
+						GPManifest: GPNum
+					});
+				},
+				error: function (cc, vv) {
+
+					var parser = new DOMParser();
+					var xmlDoc = parser.parseFromString(cc.response.body, "text/xml");
+					var msg = xmlDoc.getElementsByTagName("message")[0].innerHTML;
+					sap.m.MessageToast.show(msg);
+				}
+
+			});
+*/
+		},
+		DisplayGP: function (oEvent) {
+			this._item = oEvent.getSource().getBindingContext().getObject();
+			// Get the selected Item 
+			var oOrgUnit = this._item;
+			// Get the OrgUnit ID 
+			var GPNum = oOrgUnit.Gpassno;
+			var flag = "Y";
+			var oThis = this;
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(oThis);
+			oRouter.navTo("ChanDispScreen", {
+				GPManifest: GPNum,
+				FlagChaDisp: flag
+			});
+		}
+
+		/**
+		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
+		 * (NOT before the first rendering! onInit() is used for that one!).
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChaDispGpList
+		 */
+		//	onBeforeRendering: function() {
+		//
+		//	},
+
+		/**
+		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
+		 * This hook is the same one that SAPUI5 controls get after being rendered.
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChaDispGpList
+		 */
+		//	onAfterRendering: function() {
+		//
+		//	},
+
+		/**
+		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChaDispGpList
+		 */
+		//	onExit: function() {
+		//
+		//	}
+
+	});
+
+});

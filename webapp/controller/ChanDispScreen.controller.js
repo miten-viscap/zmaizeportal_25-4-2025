@@ -1,2 +1,1852 @@
-sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/routing/History","sap/ui/core/UIComponent","sap/m/MessageBox","sap/m/PDFViewer"],function(e,t,a,s,i){"use strict";var r;var l;var d;var o;var n;var u;var b;var g;var y;var h;var I;var c;var p;var v;var f;var V;var m;return e.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.ChanDispScreen",{onInit:function(){this.byId("Billbags").setValue("0.00");var e="/sap/opu/odata/sap/ZGW_GATEPASS_SRV/";r=new sap.ui.model.odata.ODataModel(e);this.getView().setModel(r);var t=sap.ui.core.UIComponent.getRouterFor(this);t.getRoute("ChanDispScreen").attachPatternMatched(this._onObjectMatched,this);this._pdfViewer=new i;this.getView().addDependent(this._pdfViewer)},onNavBack:function(){this.byId("labNoBags").setProperty("required",false);this.byId("labMandirec").setProperty("required",false);this.byId("lanNoUnloadBags").setProperty("required",false);var e=window.localStorage.getItem("key1");var a=e.split("/")[1];var s=e.split("/")[2];var i=e.split("/")[3];var r=e.split("/")[4];var l=e.split("/")[5];var d=e.split("/")[6];var o=e.split("/")[7];var n=e.split("/")[8];var u=e.split("/")[9];var b=t.getInstance();var g=b.getPreviousHash();if(g!==undefined){window.history.go(-1)}else{var y=sap.ui.core.UIComponent.getRouterFor(this);y.navTo("ChaDispGpList",{invoicePath:a,invoicePath1:s,invoicePath2:i,invoicePath3:r,invoicePath5:l,invoicePath6:d,invoicePath7:o,invoicePath8:n,invoicePath9:u})}},inputlivebags:function(){var e=this.byId("Billbags").getValue();var t="^[0-9]*$";if(e.match(t)){this.byId("Billbags").setValueState("None")}else{this.byId("Billbags").setValueState("Error")}},inputlivebags2:function(){var e=this.byId("RejectedBags").getValue();var t="^[0-9]*$";if(e.match(t)){this.byId("RejectedBags").setValueState("None")}else{this.byId("RejectedBags").setValueState("Error")}},inputlivebags3:function(){var e=this.byId("TornedBags").getValue();var t="^[0-9]*$";if(e.match(t)){this.byId("TornedBags").setValueState("None")}else{this.byId("TornedBags").setValueState("Error")}},_onObjectMatched:function(e){this.SetZeroVal();g=e.getParameter("arguments").GPManifest;this.byId("GatePassNo").setValue(g);h=e.getParameter("arguments").SelMatCode;var t=e.getParameter("arguments").FlagChaDisp;if(t=="X"){this.AllFieldEditableTrue()}else{this.AllFieldEditableFalse()}if(h==="110029"){this.byId("labNoBags").setProperty("required",true);this.byId("labMandirec").setProperty("required",true);this.byId("lanNoUnloadBags").setProperty("required",true)}var a=this;r.read("/GatepassdtlSet(Gpassno='"+g+"')",{method:"GET",success:function(e,t){var s=e.Ebeln;b=e.Werks;o=e.Brokername;y=e.Bedat;h=e.Matnr;I=e.Brokerno;var i=e.TranspLrNo;var r=e.Vehicleno;var l=e.Transporter;var d=e.Station;var g=e.StName;n=e.Vendorno;u=e.Vendorname;var p=n+" "+u;var v=e.Gpassdt;var B=e.Bilno;var S=e.Bildt;var C=e.Bilwt;var D=e.Bilbag;var P=e.WtslipNo;var A=e.WtslipDt;var N=e.StorageLocation;var T=e.WtslipQty;var E=e.WtslipBag;var Q=e.Rejwt;var M=e.RejBag;var w=e.Tornbag;var _=e.Bagavgwt;var G=e.MatDoc;var R=e.MandiNo;var W=e.MandiTax;var F=e.OtherDed;var x=e.AnyOther;var L=e.RateDifference;var U=e.UsageDecision;var O=e.Message;c=e.NoQltyDeduction;m=e.PaymentOnPbw;f=e.NoGunnyDed;V=e.NoUnldChargeDed;var j=e.DocYear;var k=e.Insplot;a.byId("ipPONo").setValue(s);var q=sap.ui.core.format.DateFormat.getInstance({pattern:"dd/MM/yyyy"});var X=q.format(new Date(y));a.byId("Po_date").setValue(X);a.byId("BrokName").setValue(o);a.byId("LRGRno").setValue(i);a.byId("Truckno").setValue(r);a.byId("TransDetail").setValue(l);a.byId("Station").setValue(d);a.byId("VendName").setValue(p);a.byId("GatepassDate").setValue(v);a.byId("PartyBill").setValue(B);a.byId("PartyDate").setValue(S);a.byId("BillWeight").setValue(C);a.byId("Billbags").setValue(D);a.byId("WeightSlipNo").setValue(P);a.byId("WtSlipDate").setValue(A);a.byId("Store_loc").setValue(N);a.byId("UnloadedWeight").setValue(T);a.byId("UnloadBags").setValue(E);a.byId("RejectedWeight").setValue(Q);a.byId("RejectedBags").setValue(M);a.byId("TornedBags").setValue(w);a.byId("Avg_wt").setValue(_);a.byId("MatDoc").setValue(G);a.byId("ReceiptNum").setValue(R);a.byId("MandiTax").setValue(W);a.byId("OtherDeduct").setValue(F);a.byId("AnyOtherDeduct").setValue(x);a.byId("RateDiff").setValue(L);a.byId("remarksany").setValue(O);if(c=="X"){a.byId("Quality_deduct").setSelected(true)}else{a.byId("Quality_deduct").setSelected(false)}if(m=="X"){a.byId("Pay_Weight").setSelected(true)}else{a.byId("Pay_Weight").setSelected(false)}if(f=="X"){a.byId("GunnyBag_deduct").setSelected(true)}else{a.byId("GunnyBag_deduct").setSelected(false)}if(V=="X"){a.byId("UnloadCharge_deduct").setSelected(true)}else{a.byId("UnloadCharge_deduct").setSelected(false)}if(U=="A"){var z="A-Accept";a.byId("UsageDes").setValue(z)}else{a.byId("UsageDes").setValue(U)}if(j=="0000"){a.byId("DocYr").setValue("")}else{a.byId("DocYr").setValue(j)}if(k=="000000000000"){a.byId("InspLot").setValue("")}else{a.byId("InspLot").setValue(k)}},error:function(e,t){sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator")}})},CheckBox1:function(){var e=this.byId("Quality_deduct");if(e.getSelected()){l="X"}else{l=""}},CheBoxPay:function(){var e=this.byId("Pay_Weight");if(e.getSelected()){m="X"}else{m=""}},CheckBox2:function(){var e=this.byId("GunnyBag_deduct");if(e.getSelected()){f="X"}else{f=""}},CheckBox3:function(){var e=this.byId("UnloadCharge_deduct");if(e.getSelected()){V="X"}else{V=""}},onInputDecimalChange:function(e){var t=this.byId("BillWeight").getValue();if(t!=""){this.byId("BillWeight").setMaxLength(11);var a=t*1;var s=a.toFixed(3);this.byId("BillWeight").setValue(s);this.byId("BillWeight").setMaxLength(8)}else{this.byId("Billbags").setValue("0.00")}},onInputDecimalChange1:function(e){var t=this.byId("Billbags").getValue();if(t!=""){this.byId("Billbags").setMaxLength(11);var a=t*1;var s=a.toFixed(3);this.byId("Billbags").setValue(s);this.byId("Billbags").setMaxLength(8)}else{this.byId("Billbags").setValue("0.00")}},onInputDecimalChange2:function(e){var t=this.byId("TornedBags").getValue();if(t!=""){this.byId("TornedBags").setMaxLength(11);var a=t*1;var s=a.toFixed(3);this.byId("TornedBags").setValue(s);this.byId("TornedBags").setMaxLength(8)}else{this.byId("TornedBags").setValue("0.00")}},onInputDecimalChange3:function(e){var t=this.byId("RejectedWeight").getValue();if(t!=""){this.byId("RejectedWeight").setMaxLength(11);var a=t*1;var s=a.toFixed(3);this.byId("RejectedWeight").setValue(s);this.byId("RejectedWeight").setMaxLength(8)}else{this.byId("RejectedWeight").setValue("0.00")}},Stor_caps:function(){var e=this.byId("Store_loc").getValue().toUpperCase();this.byId("Store_loc").setValue(e)},DivAvgWt:function(){},GpLivedate:function(){var e=this.byId("GatepassDate").getValue();this.byId("WtSlipDate").setValue(e)},OnSaveBtn:function(){var e=this.byId("MatDoc").getValue();if(e==""){if(h==="110029"){var t=this.byId("Billbags").getValue();var a=this.byId("ReceiptNum").getValue();var i=this.byId("UnloadBags").getValue();if(t==="0.00"){this.byId("Billbags").setValueState("Error");this.byId("ReceiptNum").setValueState("None");this.byId("UnloadBags").setValueState("None");this.byId("ReceiptNum").setValue("");this.byId("UnloadBags").setValue("");return}if(a===""){this.byId("ReceiptNum").setValueState("Error");this.byId("Billbags").setValueState("None");this.byId("UnloadBags").setValueState("None");this.byId("Billbags").setValue("0.00");this.byId("UnloadBags").setValu("");return}if(i===""){this.byId("UnloadBags").setValueState("Error");this.byId("Billbags").setValueState("None");this.byId("ReceiptNum").setValueState("None");this.byId("Billbags").setValue("0.00");this.byId("ReceiptNum").setValue("");return}this.byId("Billbags").setValueState("None");this.byId("ReceiptNum").setValueState("None");this.byId("UnloadBags").setValueState("None");var c=this;var p=this.getView();var v=[p.byId("GatePassNo"),p.byId("ipPONo"),p.byId("GatepassDate"),p.byId("PartyBill"),p.byId("VendName"),p.byId("WeightSlipNo"),p.byId("PartyDate"),p.byId("BillWeight")];jQuery.each(v,function(e,t){if(!t.getValue()){t.setValueState("Error")}else{t.setValueState("None")}});var B=true;jQuery.each(v,function(e,t){if(t.getValueState()==="Error"){B=false;return false}});if(!B){sap.m.MessageToast.show("Please Fill all Mandatory Fields")}else{var S=this.byId("GatePassNo");var C=this.byId("ipPONo");var D=this.byId("LRGRno");var P=this.byId("Truckno");var A=this.byId("Station");var N=this.byId("TransDetail");var T=this.byId("GatepassDate").getValue();var E=this.byId("PartyBill");var Q=this.byId("PartyDate").getValue();var M=this.byId("BillWeight");var w=this.byId("Billbags");var _=this.byId("WeightSlipNo");var G=this.byId("WtSlipDate").getValue();var R=this.byId("Store_loc");var W=this.byId("UnloadedWeight");var F=this.byId("UnloadBags");var x=this.byId("RejectedWeight");var L=this.byId("RejectedBags");var U=this.byId("TornedBags");var O=this.byId("Avg_wt");var j=this.byId("ReceiptNum");var k=this.byId("MandiTax");var q=this.byId("OtherDeduct");var X=this.byId("AnyOtherDeduct");var z=this.byId("RateDiff");var Y=this.byId("remarksany");var $="1111-11-11T00:00:00";var H=sap.ui.core.format.DateFormat.getInstance({pattern:"yyyy-MM-ddThh:mm:ss"});var Z=H.format(new Date($));if(Q==""){Q=Z}if(Q!==""){var K={};var J=this.byId("Quality_deduct").getSelected();if(J==false){l=""}else{l="X"}var ee=this.byId("Pay_Weight").getSelected();if(ee==false){m=""}else{m="X"}var te=this.byId("GunnyBag_deduct").getSelected();if(te==false){f=""}else{f="X"}var ae=this.byId("UnloadCharge_deduct").getSelected();if(ae==false){V=""}else{V="X"}K.QltyPar=d;K.NoQltyDeduction=l;K.NoGunnyDed=f;K.NoUnldChargeDed=V;K.PaymentOnPbw=m;K.Werks=b;K.Bedat=y;K.Matnr=h;K.Gpassno=S.getValue();K.Ebeln=C.getValue();K.Brokerno=I;K.Brokername=o;K.Vendorno=n;K.Vendorname=u;K.TranspLrNo=D.getValue();K.Vehicleno=P.getValue();if(A.getValue()===""){sap.m.MessageBox.error("Station code is mandatory. Kindly select station code first.");return false}K.StName=this.desc;K.Station=this.key;K.Transporter=N.getValue();K.Gpassdt=T;K.Bilno=E.getValue();K.Bildt=Q;K.Bilwt=M.getValue();K.Bilbag=w.getValue();K.WtslipNo=_.getValue();K.WtslipDt=G;K.StorageLocation=R.getValue();K.WtslipQty=W.getValue();K.WtslipBag=F.getValue();K.Rejwt=x.getValue();K.RejBag=L.getValue();K.Tornbag=U.getValue();K.Bagavgwt=O.getValue();K.MandiNo=j.getValue();K.MandiTax=k.getValue();K.OtherDed=q.getValue();K.AnyOther=X.getValue();K.RateDifference=z.getValue();K.Message=Y.getValue();var se=this.byId("BillWeight").getValue();var ie=this.byId("Billbags").getValue();if(se==0){sap.m.MessageToast.show("Bill Weight can't be kept Zero")}else{r.update("/GatepassdtlSet('"+g+"')",K,{method:"PUT",success:function(e,t){var a=new DOMParser;var i=t.headers["sap-message"];if(i==undefined){sap.m.MessageToast.show("Data Has been Successfully Created");c.getView().byId("Savebtn").setEnabled(false);c.getView().byId("Cancelbtn").setEnabled(false);c.FieldEditFalseSave()}else{var r=a.parseFromString(i,"text/xml");var l=r.getElementsByTagName("message")[0].childNodes[0].nodeValue;s.error(l)}},error:function(e,t){sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator")}})}}}}else{this.byId("Billbags").setValueState("None");this.byId("ReceiptNum").setValueState("None");this.byId("UnloadBags").setValueState("None");var c=this;var p=this.getView();var v=[p.byId("GatePassNo"),p.byId("ipPONo"),p.byId("GatepassDate"),p.byId("PartyBill"),p.byId("VendName"),p.byId("WeightSlipNo"),p.byId("PartyDate"),p.byId("BillWeight"),p.byId("Billbags")];jQuery.each(v,function(e,t){if(!t.getValue()){t.setValueState("Error")}else{t.setValueState("None")}});var B=true;jQuery.each(v,function(e,t){if(t.getValueState()==="Error"){B=false;return false}});if(!B){sap.m.MessageToast.show("Please Fill all Mandatory Fields")}else{var S=this.byId("GatePassNo");var C=this.byId("ipPONo");var D=this.byId("LRGRno");var P=this.byId("Truckno");var A=this.byId("Station");var N=this.byId("TransDetail");var T=this.byId("GatepassDate").getValue();var E=this.byId("PartyBill");var Q=this.byId("PartyDate").getValue();var M=this.byId("BillWeight");var w=this.byId("Billbags");var _=this.byId("WeightSlipNo");var G=this.byId("WtSlipDate").getValue();var R=this.byId("Store_loc");var W=this.byId("UnloadedWeight");var F=this.byId("UnloadBags");var x=this.byId("RejectedWeight");var L=this.byId("RejectedBags");var U=this.byId("TornedBags");var O=this.byId("Avg_wt");var j=this.byId("ReceiptNum");var k=this.byId("MandiTax");var q=this.byId("OtherDeduct");var X=this.byId("AnyOtherDeduct");var z=this.byId("RateDiff");var Y=this.byId("remarksany");var $="1111-11-11T00:00:00";var H=sap.ui.core.format.DateFormat.getInstance({pattern:"yyyy-MM-ddThh:mm:ss"});var Z=H.format(new Date($));if(Q==""){Q=Z}if(Q!==""){var K={};var J=this.byId("Quality_deduct").getSelected();if(J==false){l=""}else{l="X"}var ee=this.byId("Pay_Weight").getSelected();if(ee==false){m=""}else{m="X"}var te=this.byId("GunnyBag_deduct").getSelected();if(te==false){f=""}else{f="X"}var ae=this.byId("UnloadCharge_deduct").getSelected();if(ae==false){V=""}else{V="X"}K.QltyPar=d;K.NoQltyDeduction=l;K.NoGunnyDed=f;K.NoUnldChargeDed=V;K.PaymentOnPbw=m;K.Werks=b;K.Bedat=y;K.Matnr=h;K.Gpassno=S.getValue();K.Ebeln=C.getValue();K.Brokerno=I;K.Brokername=o;K.Vendorno=n;K.Vendorname=u;K.TranspLrNo=D.getValue();K.Vehicleno=P.getValue();if(A.getValue()===""){sap.m.MessageBox.error("Station code is mandatory. Kindly select station code first.");return false}K.StName=this.desc;K.Station=this.key;K.Transporter=N.getValue();K.Gpassdt=T;K.Bilno=E.getValue();K.Bildt=Q;K.Bilwt=M.getValue();K.Bilbag=w.getValue();K.WtslipNo=_.getValue();K.WtslipDt=G;K.StorageLocation=R.getValue();K.WtslipQty=W.getValue();K.WtslipBag=F.getValue();K.Rejwt=x.getValue();K.RejBag=L.getValue();K.Tornbag=U.getValue();K.Bagavgwt=O.getValue();K.MandiNo=j.getValue();K.MandiTax=k.getValue();K.OtherDed=q.getValue();K.AnyOther=X.getValue();K.RateDifference=z.getValue();K.Message=Y.getValue();var se=this.byId("BillWeight").getValue();var ie=this.byId("Billbags").getValue();if(se==0){sap.m.MessageToast.show("Bill Weight can't be kept Zero")}else{r.update("/GatepassdtlSet('"+g+"')",K,{method:"PUT",success:function(e,t){var a=new DOMParser;var i=t.headers["sap-message"];if(i==undefined){sap.m.MessageToast.show("Data Has been Successfully Created");c.getView().byId("Savebtn").setEnabled(false);c.getView().byId("Cancelbtn").setEnabled(false);c.FieldEditFalseSave()}else{var r=a.parseFromString(i,"text/xml");var l=r.getElementsByTagName("message")[0].childNodes[0].nodeValue;s.error(l)}},error:function(e,t){sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator")}})}}}}}else{sap.m.MessageToast.show("MIGO has already performed you cannot change Gate Pass")}},OnCancelBtn:function(){var e=this.getView();var t=[e.byId("GatePassNo"),e.byId("ipPONo"),e.byId("BrokName"),e.byId("VendName"),e.byId("WeightSlipNo"),e.byId("UnloadedWeight"),e.byId("RateDiff")];jQuery.each(t,function(e,t){t.setValueState("None")});var s=a.getRouterFor(this);s.navTo("Gate_Pass")},PerformGoodsMovment:function(){var e=this;this.OnSaveBtn();var t=this.byId("InspLot").getValue();var a=this.byId("MatDoc").getValue();if(!t==""&&!a==""){sap.m.MessageToast.show("Goods Movement Already Performed")}else{var s=this.getView().byId("GatepassDate").getValue();var i=this.getView().byId("ipPONo").getValue();var r=this.getView().byId("GatePassNo").getValue();var l=this.getView().byId("UnloadedWeight").getValue();var d=this.getView().byId("Billbags").getValue();var o=this.getView().byId("Store_loc").getValue();var n=this.getView();var u=[n.byId("Store_loc"),n.byId("UnloadedWeight"),n.byId("UnloadBags")];jQuery.each(u,function(e,t){if(!t.getValue()){t.setValueState("Error")}else{t.setValueState("None")}});var b=true;jQuery.each(u,function(e,t){if(t.getValueState()==="Error"){b=false;return false}});if(!b){sap.m.MessageToast.show("Please Fill all Mandatory Fields")}else{this.getView().byId("BtnGoodMov").setVisible(true);var g=sap.ui.core.format.DateFormat.getInstance({pattern:"dd/MM/yyyy"});var y=g.format(new Date(s));if(!this._oDialog){this._oDialog=sap.ui.xmlfragment("MaizeProcurementPortal.MaizeProcurementPortal.view.GoodsMovement",this)}sap.ui.getCore().byId("Goods_Date").setText(y);sap.ui.getCore().byId("Po_Num").setText(i);sap.ui.getCore().byId("Gp_Num").setText(r);sap.ui.getCore().byId("quantity_Num").setText(l);sap.ui.getCore().byId("Bags_Num").setText(d);sap.ui.getCore().byId("Store_locDialog").setText(o);this._oDialog.open()}}},onSubmitGMDialog:function(){this._oDialog.close();var e=this;var t=this.byId("GatepassDate").getValue();var a=this.byId("Store_loc").getValue();var i=sap.ui.getCore().byId("Po_Num").getText();var l=sap.ui.getCore().byId("Gp_Num").getText();var d=sap.ui.getCore().byId("Bags_Num").getText();var o=sap.ui.getCore().byId("quantity_Num").getText();var n=this.byId("PartyBill").getValue();var u=this.byId("PartyDate").getValue();var b=this.byId("Truckno").getValue();var g={Gpassdt:t,Bedat:t,Ebeln:i,Gpassno:l,WtslipQty:o,Bilbag:d,Bilno:n,Bildt:u,StorageLocation:a,Vehicleno:b};r.create("/MigoSet",g,{Method:"PUT",success:function(t,a){v=t.MatDoc;var i=t.DocYear;p=t.Insplot;if(v==""&&i=="0000"){var r=new DOMParser;var l=a.headers["sap-message"];var d=r.parseFromString(l,"text/xml");var o=d.getElementsByTagName("message")[0].childNodes[0].nodeValue;s.error(o)}else{var n=v+","+i;sap.m.MessageToast.show(n);e.byId("MatDoc").setValue(v);e.getView().byId("DocYr").setValue(i);e.getView().byId("InspLot").setValue(p);e.byId("BtnGenQA").setVisible(true);sap.ui.getCore().byId("Goods_Date").setText("");sap.ui.getCore().byId("Po_Num").setText("");sap.ui.getCore().byId("Gp_Num").setText("");sap.ui.getCore().byId("quantity_Num").setText("");sap.ui.getCore().byId("Bags_Num").setText("");sap.ui.getCore().byId("Store_locDialog").setText("");e.FieldEditFalseMigo()}},error:function(e,t){sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator QA")}})},onCancelGmDialog:function(){this._oDialog.close()},PerformQA:function(){var e=this;var t=this.byId("InspLot").getValue();if(t==""){sap.m.MessageToast.show("Inspection Lot Number not generated yet")}else{r.read("/QAcharSet?$filter=(Insplot eq '"+t+"')",{success:function(t,a){var i=t.results.length;if(i=="0"){var r=new DOMParser;var l=a.headers["sap-message"];var d=r.parseFromString(l,"text/xml");var o=d.getElementsByTagName("message")[0].childNodes[0].nodeValue;s.error(o)}else{if(!e._oDialog1){e._oDialog1=sap.ui.xmlfragment("MaizeProcurementPortal.MaizeProcurementPortal.view.PerformQA",e)}e._oDialog1.open();var n;for(n=0;n<=t.results.length;n++){var u=t.results[n].Inspchar;if(u==="0010"){var b=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel1").setVisible(true);sap.ui.getCore().byId("QAip1").setVisible(true);sap.ui.getCore().byId("QAip1").setRequired(true);sap.ui.getCore().byId("QALabel1").setText(b)}if(u==="0020"){var g=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel2").setVisible(true);sap.ui.getCore().byId("QAip2").setVisible(true);sap.ui.getCore().byId("QAip2").setRequired(true);sap.ui.getCore().byId("QALabel2").setText(g)}if(u==="0030"){var y=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel3").setVisible(true);sap.ui.getCore().byId("QAip3").setVisible(true);sap.ui.getCore().byId("QAip3").setRequired(true);sap.ui.getCore().byId("QALabel3").setText(y)}if(u==="0040"){var h=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel4").setVisible(true);sap.ui.getCore().byId("QAip4").setVisible(true);sap.ui.getCore().byId("QAip4").setRequired(true);sap.ui.getCore().byId("QALabel4").setText(h)}if(u==="0050"){var I=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel5").setVisible(true);sap.ui.getCore().byId("QAip5").setVisible(true);sap.ui.getCore().byId("QAip5").setRequired(true);sap.ui.getCore().byId("QALabel5").setText(I)}if(u==="0060"){var c=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel6").setVisible(true);sap.ui.getCore().byId("QAip6").setVisible(true);sap.ui.getCore().byId("QAip6").setRequired(true);sap.ui.getCore().byId("QALabel6").setText(c)}if(u==="0070"){var p=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel7").setVisible(true);sap.ui.getCore().byId("QAip7").setVisible(true);sap.ui.getCore().byId("QAip7").setRequired(true);sap.ui.getCore().byId("QALabel7").setText(p)}if(u==="0080"){var v=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel8").setVisible(true);sap.ui.getCore().byId("QAip8").setVisible(true);sap.ui.getCore().byId("QAip8").setRequired(true);sap.ui.getCore().byId("QALabel8").setText(v)}if(u==="0090"){var f=t.results[n].CharDescr;sap.ui.getCore().byId("QALabel9").setVisible(true);sap.ui.getCore().byId("QAip9").setVisible(true);sap.ui.getCore().byId("QAip9").setRequired(true);sap.ui.getCore().byId("QALabel9").setText(f)}}}},error:function(e,t){sap.m.MessageToast.show("Please Contact your Administrator.")}})}},onSubmitQADialog:function(){this.refreshInputBinding();var e=this;var t=[sap.ui.getCore().byId("QAip1"),sap.ui.getCore().byId("QAip2"),sap.ui.getCore().byId("QAip3"),sap.ui.getCore().byId("QAip4"),sap.ui.getCore().byId("QAip5"),sap.ui.getCore().byId("QAip6"),sap.ui.getCore().byId("QAip7"),sap.ui.getCore().byId("QAip8"),sap.ui.getCore().byId("QAip9")];var a=/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/;jQuery.each(t,function(e,t){if(t.getRequired()==true){if(t.getValue()==""){t.setValueState("Error")}else{if(t.getValue().match(a)){t.setValueState("None")}else{sap.m.MessageToast.show("Please Enter the Positive Fields!!!");t.setValueState("Error")}}}});var i=true;jQuery.each(t,function(e,t){if(t.getValueState()==="Error"){i=false;return false}});if(!i){sap.m.MessageToast.show("Please Fill all Mandatory fields with Positive Numbers")}else{this._oDialog1.close();var e=this;var l=sap.ui.getCore().byId("QAip1").getValue();var d=sap.ui.getCore().byId("QAip2").getValue();var o=sap.ui.getCore().byId("QAip3").getValue();var n=sap.ui.getCore().byId("QAip4").getValue();var u=sap.ui.getCore().byId("QAip5").getValue();var b=sap.ui.getCore().byId("QAip6").getValue();var g=sap.ui.getCore().byId("QAip7").getValue();var y=sap.ui.getCore().byId("QAip8").getValue();var h=sap.ui.getCore().byId("QAip9").getValue();var I=this.byId("InspLot").getValue();var c={Field10:l,Field20:d,Field30:o,Field40:n,Field50:u,Field60:b,Field70:g,Field80:y,Field90:h,Insplot:I,ChnoField10:"0010",ChnoField20:"0020",ChnoField30:"0030",ChnoField40:"0040",ChnoField50:"0050",ChnoField60:"0060",ChnoField70:"0070",ChnoField80:"0080",ChnoField90:"0090"};r.create("/QASet",c,{Method:"PUT",success:function(t,a){e.byId("BtnGenPay").setVisible(true);e.onCancelQADialog();var i=t.Message;var r=t.UsageDecision;if(i==""){var l=new DOMParser;var d=a.headers["sap-message"];var o=l.parseFromString(d,"text/xml");var n=o.getElementsByTagName("message")[0].childNodes[0].nodeValue;s.error(n)}else{s.success(i);e.byId("BtnGenQA").setVisible(true);if(r=="A"){var u="A-Accept";e.byId("UsageDes").setValue(u)}else{e.byId("UsageDes").setValue(r)}}this.refreshInputBinding()},error:function(e,t){}})}},refreshInputBinding:function(){sap.ui.getCore().byId("QALabel1").setVisible(false);sap.ui.getCore().byId("QAip1").setVisible(false);sap.ui.getCore().byId("QALabel2").setVisible(false);sap.ui.getCore().byId("QAip2").setVisible(false);sap.ui.getCore().byId("QALabel3").setVisible(false);sap.ui.getCore().byId("QAip3").setVisible(false);sap.ui.getCore().byId("QALabel4").setVisible(false);sap.ui.getCore().byId("QAip4").setVisible(false);sap.ui.getCore().byId("QALabel5").setVisible(false);sap.ui.getCore().byId("QAip5").setVisible(false);sap.ui.getCore().byId("QALabel6").setVisible(false);sap.ui.getCore().byId("QAip6").setVisible(false);sap.ui.getCore().byId("QALabel7").setVisible(false);sap.ui.getCore().byId("QAip7").setVisible(false);sap.ui.getCore().byId("QALabel8").setVisible(false);sap.ui.getCore().byId("QAip8").setVisible(false);sap.ui.getCore().byId("QALabel9").setVisible(false);sap.ui.getCore().byId("QAip9").setVisible(false)},onCancelQADialog:function(){this._oDialog1.close();this.refreshInputBinding()},GeneratePayment:function(){var e=this.byId("GatePassNo").getValue();var t={Gpassno:e};r.create("PaymentSet",t,{Method:"PUT",success:function(e,t){var a=e.Message;var i=e.NetPayAmount;if(a==""){var r="Your Net Payable Amount is: ";s.success(r+" "+i)}else{s.error(a)}},error:function(e,t){}})},FieldEditFalseSave:function(){this.byId("LRGRno").setEditable(false);this.byId("Truckno").setEditable(false);this.byId("Station").setEditable(false);this.byId("TransDetail").setEditable(false);this.byId("PartyBill").setEditable(false);this.byId("PartyDate").setEditable(false);this.byId("BillWeight").setEditable(false);this.byId("Billbags").setEditable(false);this.byId("WeightSlipNo").setEditable(false)},AllFieldEditableTrue:function(){this.byId("Savebtn").setVisible(true);this.byId("Cancelbtn").setVisible(true);this.byId("BtnGoodMov").setVisible(true);this.byId("BtnGenQA").setVisible(true);this.byId("BtnGenPay").setVisible(true);this.byId("printGp").setVisible(false);this.byId("LRGRno").setEditable(true);this.byId("Truckno").setEditable(true);this.byId("Station").setEditable(true);this.byId("TransDetail").setEditable(true);this.byId("PartyBill").setEditable(true);this.byId("BillWeight").setEditable(true);this.byId("Billbags").setEditable(true);this.byId("WeightSlipNo").setEditable(true);this.byId("Quality_deduct").setEditable(true);this.byId("Pay_Weight").setEditable(true);this.byId("GunnyBag_deduct").setEditable(true);this.byId("UnloadCharge_deduct").setEditable(true);this.byId("Store_loc").setEditable(true);this.byId("UnloadedWeight").setEditable(true);this.byId("RejectedWeight").setEditable(true);this.byId("RejectedBags").setEditable(true);this.byId("TornedBags").setEditable(true);this.byId("MandiTax").setEditable(true);this.byId("OtherDeduct").setEditable(true);this.byId("AnyOtherDeduct").setEditable(true);this.byId("RateDiff").setEditable(true);this.byId("remarksany").setEditable(true);this.getView().byId("Savebtn").setEnabled(true);this.getView().byId("Cancelbtn").setEnabled(true)},AllFieldEditableFalse:function(){var e=this;if(c=="X"){e.byId("Quality_deduct").setSelected(true)}else{e.byId("Quality_deduct").setSelected(false)}if(m=="X"){e.byId("Pay_Weight").setSelected(true)}else{e.byId("Pay_Weight").setSelected(false)}if(f=="X"){e.byId("GunnyBag_deduct").setSelected(true)}else{e.byId("GunnyBag_deduct").setSelected(false)}if(V=="X"){e.byId("UnloadCharge_deduct").setSelected(true)}else{e.byId("UnloadCharge_deduct").setSelected(false)}this.byId("Savebtn").setVisible(false);this.byId("Cancelbtn").setVisible(false);this.byId("BtnGoodMov").setVisible(false);this.byId("BtnGenQA").setVisible(false);this.byId("BtnGenPay").setVisible(false);this.byId("printGp").setVisible(true);this.byId("LRGRno").setEditable(false);this.byId("Truckno").setEditable(false);this.byId("Station").setEditable(false);this.byId("TransDetail").setEditable(false);this.byId("PartyBill").setEditable(false);this.byId("BillWeight").setEditable(false);this.byId("Billbags").setEditable(false);this.byId("WeightSlipNo").setEditable(false);this.byId("Quality_deduct").setEditable(false);this.byId("Pay_Weight").setEditable(false);this.byId("GunnyBag_deduct").setEditable(false);this.byId("UnloadCharge_deduct").setEditable(false);this.byId("Store_loc").setEditable(false);this.byId("UnloadedWeight").setEditable(false);this.byId("UnloadBags").setEditable(false);this.byId("RejectedWeight").setEditable(false);this.byId("RejectedBags").setEditable(false);this.byId("TornedBags").setEditable(false);this.byId("ReceiptNum").setEditable(false);this.byId("MandiTax").setEditable(false);this.byId("OtherDeduct").setEditable(false);this.byId("AnyOtherDeduct").setEditable(false);this.byId("RateDiff").setEditable(false);this.byId("remarksany").setEditable(false)},SetZeroVal:function(){this.byId("BillWeight").setValue("0.00");this.byId("UnloadedWeight").setValue("0.00");this.byId("UnloadBags").setValue("0.00");this.byId("RejectedWeight").setValue("0.00");this.byId("RejectedBags").setValue("0.00");this.byId("TornedBags").setValue("0.00");this.byId("RateDiff").setValue("0.00");this.byId("Avg_wt").setValue("0")},FieldEditFalseMigo:function(){this.byId("Store_loc").setEditable(false);this.byId("UnloadedWeight").setEditable(false);this.byId("UnloadBags").setEditable(false);this.byId("RejectedWeight").setEditable(false);this.byId("RejectedBags").setEditable(false);this.byId("TornedBags").setEditable(false);this.byId("Avg_wt").setEditable(false);this.byId("ReceiptNum").setEditable(false);this.byId("MandiTax").setEditable(false);this.byId("OtherDeduct").setEditable(false);this.byId("AnyOtherDeduct").setEditable(false);this.byId("RateDiff").setEditable(false)},printgp:function(){var e=this;var t=this.byId("GatePassNo").getValue();var a="GATEPASS";r.read("/SmartformSet(Gpassno='"+t+"',Formname='"+a+"')/$value",{method:"GET",success:function(t,a){var s=a.requestUri;e._pdfViewer.setSource(s);e._pdfViewer.setTitle("Gate Pass Form");e._pdfViewer.open()},error:function(e,t){sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator")}})},ValueHelpRequestforStation:function(){r.read("zmm_stationset",{method:"GET",success:function(e,t){var a=new sap.ui.model.json.JSONModel;a.setData(e);this.getOwnerComponent().setModel(a,"StationModel");if(!this.StationFrag){this.StationFrag=sap.ui.xmlfragment("MaizeProcurementPortal.MaizeProcurementPortal.Fragment.StationF4",this);this.getView().addDependent(this.StationFrag)}this.StationFrag.open()}.bind(this),error:function(e){}})},closeDlg:function(e){var t=e.getParameter("selectedItem");if(t){this.desc=t.getDescription();this.key=t.getTitle()}this.getView().byId("Station").setValue(this.desc);this.StationFrag.destroy();this.StationFrag=undefined},livechangesearch:function(e){var t=e.mParameters.value;var a=new sap.ui.model.Filter([new sap.ui.model.Filter("ST_CODE",sap.ui.model.FilterOperator.Contains,t),new sap.ui.model.Filter("ST_NAME",sap.ui.model.FilterOperator.Contains,t)]);var s=sap.ui.getCore().byId("StationDialog").getBinding("items");s.filter([a])}})});
-//# sourceMappingURL=ChanDispScreen.controller.js.map
+sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/routing/History",
+	"sap/ui/core/UIComponent",
+	"sap/m/MessageBox",
+	"sap/m/PDFViewer"
+], function (Controller, History, UIComponent, MessageBox, PDFViewer) {
+	"use strict";
+	var oModel;
+	var FlagVal;
+	var FlagVal1;
+	var Brok_name;
+	var Vend_code;
+	var Vend_name;
+	var Plant_num;
+	var GP_Num;
+	var Podate;
+	var matcode;
+	var BrokerNum;
+	var QualityDeduct;
+	// var Specs_quality;
+	var InspectionLot;
+	var Matdoc;
+	var GunnyFlagVal;
+	var UnloadFlagVal;
+	var PayOnWeight;
+
+	return Controller.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.ChanDispScreen", {
+
+		/**
+		 * Called when a controller is instantiated and its View controls (if available) are already created.
+		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChanDispScreen
+		 */
+		onInit: function () {
+			this.byId("Billbags").setValue("0.00");
+
+			var serviceURl = "/sap/opu/odata/sap/ZGW_GATEPASS_SRV/";
+			oModel = new sap.ui.model.odata.ODataModel(serviceURl);
+			this.getView().setModel(oModel);
+
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("ChanDispScreen").attachPatternMatched(this._onObjectMatched, this);
+
+			this._pdfViewer = new PDFViewer();
+			this.getView().addDependent(this._pdfViewer);
+
+		},
+		onNavBack: function () {
+			this.byId("labNoBags").setProperty("required", false);
+			this.byId("labMandirec").setProperty("required", false);
+			this.byId("lanNoUnloadBags").setProperty("required", false);
+
+			var url = window.localStorage.getItem("key1");
+			var data = url.split("/")[1];
+			var data1 = url.split("/")[2];
+			var data2 = url.split("/")[3];
+			var data3 = url.split("/")[4];
+			var data4 = url.split("/")[5];
+			var data5 = url.split("/")[6];
+			var data6 = url.split("/")[7];
+			var data7 = url.split("/")[8];
+			var data8 = url.split("/")[9];
+			var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("ChaDispGpList", {
+					invoicePath: data,
+					invoicePath1: data1,
+					invoicePath2: data2,
+					invoicePath3: data3,
+					invoicePath5: data4,
+					invoicePath6: data5,
+					invoicePath7: data6,
+					invoicePath8: data7,
+					invoicePath9: data8
+				});
+			}
+			/*
+
+				var oRouter = UIComponent.getRouterFor(this);
+				var url = window.localStorage.getItem("key1");
+				var data = url.split("/")[1];
+				var data1 = url.split("/")[2];
+				var data2 = url.split("/")[3];
+				var data3 = url.split("/")[4];
+				var data4 = url.split("/")[5];
+				var data5 = url.split("/")[6];
+				var data6 = url.split("/")[7];
+				var data7 = url.split("/")[8];
+
+				var sPreviousHash;
+				// var sPreviousHash; = oHistory.getPreviousHash();
+				if (sPreviousHash !== undefined) {
+					window.history.go(-1);
+				} else {
+
+					// oRouter.navTo(url);
+					oRouter.navTo("ChaDispGpList", {
+						// invoicePath: oEntry
+						invoicePath: data,
+						invoicePath1: data1,
+						invoicePath2: data2,
+						invoicePath3: data3,
+						invoicePath5: data4,
+						invoicePath6: data5,
+						invoicePath7: data6,
+						invoicePath9: data7
+
+					});
+				}
+		
+			*/
+		},
+		inputlivebags: function () {
+
+			var fValue = this.byId("Billbags").getValue();
+			var regex = "^[0-9]*$";
+			if (fValue.match(regex)) {
+				this.byId("Billbags").setValueState("None");
+
+			} else {
+				this.byId("Billbags").setValueState("Error");
+			}
+
+		},
+
+		inputlivebags2: function () {
+
+			var fValue = this.byId("RejectedBags").getValue();
+			var regex = "^[0-9]*$";
+			if (fValue.match(regex)) {
+				this.byId("RejectedBags").setValueState("None");
+
+			} else {
+				this.byId("RejectedBags").setValueState("Error");
+			}
+
+		},
+		inputlivebags3: function () {
+
+			var fValue = this.byId("TornedBags").getValue();
+			var regex = "^[0-9]*$";
+			if (fValue.match(regex)) {
+				this.byId("TornedBags").setValueState("None");
+
+			} else {
+				this.byId("TornedBags").setValueState("Error");
+			}
+
+		},
+		_onObjectMatched: function (oEvent) {
+
+			this.SetZeroVal();
+
+			GP_Num = oEvent.getParameter("arguments").GPManifest;
+			this.byId("GatePassNo").setValue(GP_Num);
+
+			matcode = oEvent.getParameter("arguments").SelMatCode;
+
+			var Flag_ChaDisp = oEvent.getParameter("arguments").FlagChaDisp;
+			if (Flag_ChaDisp == "X") {
+				this.AllFieldEditableTrue();
+			} else {
+				this.AllFieldEditableFalse();
+			}
+
+			if (matcode === "110029") {
+				this.byId("labNoBags").setProperty("required", true);
+				this.byId("labMandirec").setProperty("required", true);
+				this.byId("lanNoUnloadBags").setProperty("required", true);
+			}
+
+			var oThis = this;
+			oModel.read("/GatepassdtlSet(Gpassno='" + GP_Num + "')", {
+				method: "GET",
+				success: function (data, response) {
+					var Po_num = data.Ebeln;
+					Plant_num = data.Werks;
+					Brok_name = data.Brokername;
+					Podate = data.Bedat;
+					matcode = data.Matnr;
+					BrokerNum = data.Brokerno;
+					var LR_grno = data.TranspLrNo;
+					var Vehi_num = data.Vehicleno;
+					var Trans = data.Transporter;
+					var Station = data.Station;
+					var StationDesc = data.StName;
+					Vend_code = data.Vendorno;
+					Vend_name = data.Vendorname;
+					var Vend_Concate = Vend_code + " " + Vend_name;
+					var Gp_date = data.Gpassdt;
+
+					var Party_bill = data.Bilno;
+					var Party_date = data.Bildt;
+					var Bill_wt = data.Bilwt;
+					var Bill_bag = data.Bilbag;
+					var Wt_slipno = data.WtslipNo;
+					var Wt_slipdate = data.WtslipDt;
+
+					var Storage_loc = data.StorageLocation;
+					var Unload_wt = data.WtslipQty;
+					var No_Unload_bags = data.WtslipBag;
+					var Rej_wt = data.Rejwt;
+					var Rej_bags = data.RejBag;
+					var Torn_bag = data.Tornbag;
+					var Avg_wt = data.Bagavgwt;
+					var Mat_doc = data.MatDoc;
+
+					var Mandi_no = data.MandiNo;
+					var Mandi_tax = data.MandiTax;
+					var Other_deduct = data.OtherDed;
+					var Any_other = data.AnyOther;
+					var Rate_diff = data.RateDifference;
+					var usg_desc = data.UsageDecision;
+					var remarks = data.Message;
+
+					QualityDeduct = data.NoQltyDeduction;
+					PayOnWeight = data.PaymentOnPbw;
+					GunnyFlagVal = data.NoGunnyDed;
+					UnloadFlagVal = data.NoUnldChargeDed;
+
+					// Specs_quality = data.QltyPar;
+					var Doc_yr = data.DocYear;
+					var Insp_LotNo = data.Insplot;
+
+					oThis.byId("ipPONo").setValue(Po_num);
+					var dateFormat = sap.ui.core.format.DateFormat.getInstance({
+						pattern: "dd/MM/yyyy"
+					});
+					var dateFormatted = dateFormat.format(new Date(Podate));
+					oThis.byId("Po_date").setValue(dateFormatted);
+					oThis.byId("BrokName").setValue(Brok_name);
+					oThis.byId("LRGRno").setValue(LR_grno);
+					oThis.byId("Truckno").setValue(Vehi_num);
+					oThis.byId("TransDetail").setValue(Trans);
+					oThis.byId("Station").setValue(Station);
+					// oThis.byId("GatepassDate").setValue(Vend_code);
+					oThis.byId("VendName").setValue(Vend_Concate);
+
+					oThis.byId("GatepassDate").setValue(Gp_date);
+					oThis.byId("PartyBill").setValue(Party_bill);
+					oThis.byId("PartyDate").setValue(Party_date);
+					oThis.byId("BillWeight").setValue(Bill_wt);
+					oThis.byId("Billbags").setValue(Bill_bag);
+					oThis.byId("WeightSlipNo").setValue(Wt_slipno);
+					oThis.byId("WtSlipDate").setValue(Wt_slipdate);
+					oThis.byId("Store_loc").setValue(Storage_loc);
+
+					oThis.byId("UnloadedWeight").setValue(Unload_wt);
+					oThis.byId("UnloadBags").setValue(No_Unload_bags);
+					oThis.byId("RejectedWeight").setValue(Rej_wt);
+					oThis.byId("RejectedBags").setValue(Rej_bags);
+					oThis.byId("TornedBags").setValue(Torn_bag);
+					oThis.byId("Avg_wt").setValue(Avg_wt);
+					oThis.byId("MatDoc").setValue(Mat_doc);
+
+					oThis.byId("ReceiptNum").setValue(Mandi_no);
+					oThis.byId("MandiTax").setValue(Mandi_tax);
+					oThis.byId("OtherDeduct").setValue(Other_deduct);
+					oThis.byId("AnyOtherDeduct").setValue(Any_other);
+					oThis.byId("RateDiff").setValue(Rate_diff);
+					oThis.byId("remarksany").setValue(remarks);
+
+					if (QualityDeduct == "X") {
+						oThis.byId("Quality_deduct").setSelected(true);
+					} else {
+						oThis.byId("Quality_deduct").setSelected(false);
+					}
+
+					if (PayOnWeight == "X") {
+						oThis.byId("Pay_Weight").setSelected(true);
+					} else {
+						oThis.byId("Pay_Weight").setSelected(false);
+					}
+
+					if (GunnyFlagVal == "X") {
+						oThis.byId("GunnyBag_deduct").setSelected(true);
+					} else {
+						oThis.byId("GunnyBag_deduct").setSelected(false);
+					}
+
+					if (UnloadFlagVal == "X") {
+						oThis.byId("UnloadCharge_deduct").setSelected(true);
+					} else {
+						oThis.byId("UnloadCharge_deduct").setSelected(false);
+					}
+
+					if (usg_desc == "A") {
+						var AcceptA = "A-Accept";
+						oThis.byId("UsageDes").setValue(AcceptA);
+					} else {
+						oThis.byId("UsageDes").setValue(usg_desc);
+					}
+
+					if (Doc_yr == "0000") {
+						oThis.byId("DocYr").setValue("");
+					} else {
+						oThis.byId("DocYr").setValue(Doc_yr);
+					}
+					if (Insp_LotNo == "000000000000") {
+						oThis.byId("InspLot").setValue("");
+					} else {
+						oThis.byId("InspLot").setValue(Insp_LotNo);
+					}
+					//Checkbox
+					/*	if (QualityDeduct == "X") {
+							// Check box apply true
+							oThis.byId("Quality_deduct").setSelected(true);
+						} else {
+							oThis.byId("Quality_deduct").setSelected(false);
+						}
+						if (Specs_quality == "X") {
+							oThis.byId("SpecsQuality").setSelected(true);
+						} else {
+							// Check box apply false
+							oThis.byId("SpecsQuality").setSelected(false);
+						}*/
+				},
+				error: function (cc, vv) {
+					sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
+				}
+			});
+
+		},
+
+		CheckBox1: function () {
+			var QualityDeduct1 = this.byId("Quality_deduct");
+
+			if (QualityDeduct1.getSelected()) {
+				FlagVal = "X";
+			} else {
+				FlagVal = "";
+			}
+		},
+		CheBoxPay: function () {
+			var PayWeight = this.byId("Pay_Weight");
+
+			if (PayWeight.getSelected()) {
+				PayOnWeight = "X";
+			} else {
+				PayOnWeight = "";
+			}
+		},
+		CheckBox2: function () {
+			var Gunny = this.byId("GunnyBag_deduct");
+
+			if (Gunny.getSelected()) {
+				GunnyFlagVal = "X";
+			} else {
+				GunnyFlagVal = "";
+			}
+		},
+		CheckBox3: function () {
+			var Unload = this.byId("UnloadCharge_deduct");
+
+			if (Unload.getSelected()) {
+				UnloadFlagVal = "X";
+			} else {
+				UnloadFlagVal = "";
+			}
+		},
+		// CheckBox2: function () {
+		// 	var POSpecific = this.byId("SpecsQuality");
+		// 	if (POSpecific.getSelected()) {
+		// 		FlagVal1 = "X";
+		// 	} else {
+		// 		FlagVal1 = "";
+		// 	}
+		// },
+
+		onInputDecimalChange: function (oEvent) {
+
+			// var textinp1 = this.byId("BillWeight").getValue();
+			// var oThis = this;
+			/*	var view = this.getView();
+				var inputs = [
+					view.byId("BillWeight"),
+					view.byId("Billbags"),
+					view.byId("TornedBags"),
+					view.byId("RejectedWeight")
+				];
+				jQuery.each(inputs, function (i, input) {
+					if (input.getValue().match(reg)) {
+						input.setValueState("None");
+						//sap.m.MessageToast.show("Please Enter the Mandatory Fields!!!");
+					} else {
+						input.setValueState("Error");
+					}
+				});*/
+			var fValue = this.byId("BillWeight").getValue();
+			if (fValue != "") {
+				this.byId("BillWeight").setMaxLength(11);
+				var num = fValue * 1.00;
+				var number = num.toFixed(3);
+				this.byId("BillWeight").setValue(number); // Set the formatted value on the text field
+				this.byId("BillWeight").setMaxLength(8);
+
+			} else {
+				this.byId("Billbags").setValue("0.00");
+			}
+
+		},
+		onInputDecimalChange1: function (oEvent) {
+
+			var fValue = this.byId("Billbags").getValue();
+			if (fValue != "") {
+				this.byId("Billbags").setMaxLength(11);
+				var num = fValue * 1.00;
+				var number = num.toFixed(3);
+				this.byId("Billbags").setValue(number); // Set the formatted value on the text field
+				this.byId("Billbags").setMaxLength(8);
+
+			} else {
+				this.byId("Billbags").setValue("0.00");
+
+			}
+			// var reg = /^(\d*\.\d{2})+$/;
+			// var ip2 = this.byId("Billbags");
+			// if (ip2.getValue().match(reg)) {
+			// 	ip2.setValueState("None");
+			// 	// this.byId("BillWeight").setValueState("Error");
+			// } else {
+			// 	ip2.setValueState("Error");
+			// }
+		},
+		onInputDecimalChange2: function (oEvent) {
+
+			var fValue = this.byId("TornedBags").getValue();
+			if (fValue != "") {
+				this.byId("TornedBags").setMaxLength(11);
+				var num = fValue * 1.00;
+				var number = num.toFixed(3);
+				this.byId("TornedBags").setValue(number); // Set the formatted value on the text field
+				this.byId("TornedBags").setMaxLength(8);
+
+			} else {
+				this.byId("TornedBags").setValue("0.00");
+			}
+		},
+		onInputDecimalChange3: function (oEvent) {
+			var fValue = this.byId("RejectedWeight").getValue();
+			if (fValue != "") {
+				this.byId("RejectedWeight").setMaxLength(11);
+				var num = fValue * 1.00;
+				var number = num.toFixed(3);
+				this.byId("RejectedWeight").setValue(number); // Set the formatted value on the text field
+				this.byId("RejectedWeight").setMaxLength(8);
+			} else {
+				this.byId("RejectedWeight").setValue("0.00");
+			}
+
+		},
+		Stor_caps: function () {
+			var stora_loc = this.byId("Store_loc").getValue().toUpperCase();
+			this.byId("Store_loc").setValue(stora_loc);
+
+		},
+		DivAvgWt: function () {
+			/*
+
+						var fValue = this.byId("UnloadBags").getValue();
+						var regex = "^[0-9]*$";
+						if (fValue.match(regex)) {
+							this.byId("UnloadBags").setValueState("None");
+							var Unload_Val = this.byId("UnloadedWeight").getValue();
+							var Unload_BagVal = this.byId("UnloadBags").getValue();
+
+							var AvgWeight = (+Unload_Val / +Unload_BagVal);
+							var AvgDecimal = AvgWeight.toFixed(3);
+							this.byId("Avg_wt").setValue(AvgDecimal);
+						} else {
+							this.byId("UnloadBags").setValueState("Error");
+						}
+
+					*/
+		},
+		GpLivedate: function () {
+
+			var gpdate = this.byId("GatepassDate").getValue();
+			this.byId("WtSlipDate").setValue(gpdate);
+		},
+		OnSaveBtn: function () {
+
+			var matdocno = this.byId("MatDoc").getValue();
+			if (matdocno == "") {
+				if (matcode === "110029") {
+					var VBillBags = this.byId("Billbags").getValue();
+					var RecNum = this.byId("ReceiptNum").getValue();
+					var UnloBags = this.byId("UnloadBags").getValue();
+					if (VBillBags === "0.00") {
+						this.byId("Billbags").setValueState("Error");
+						this.byId("ReceiptNum").setValueState("None");
+						this.byId("UnloadBags").setValueState("None");
+						this.byId("ReceiptNum").setValue("");
+						this.byId("UnloadBags").setValue("");
+						return;
+					}
+					if (RecNum === "") {
+						this.byId("ReceiptNum").setValueState("Error");
+						this.byId("Billbags").setValueState("None");
+						this.byId("UnloadBags").setValueState("None");
+						this.byId("Billbags").setValue("0.00");
+						this.byId("UnloadBags").setValu("");
+						return;
+					}
+					if (UnloBags === "") {
+						this.byId("UnloadBags").setValueState("Error");
+						this.byId("Billbags").setValueState("None");
+						this.byId("ReceiptNum").setValueState("None");
+						this.byId("Billbags").setValue("0.00");
+						this.byId("ReceiptNum").setValue("");
+
+						return;
+					}
+
+					//
+
+					this.byId("Billbags").setValueState("None");
+					this.byId("ReceiptNum").setValueState("None");
+					this.byId("UnloadBags").setValueState("None");
+
+					var oThis = this;
+					var view = this.getView();
+					var inputs = [
+						view.byId("GatePassNo"),
+						view.byId("ipPONo"),
+						view.byId("GatepassDate"),
+						view.byId("PartyBill"),
+						// view.byId("VendName"),
+						view.byId("VendName"),
+						view.byId("WeightSlipNo"),
+						//	view.byId("WtSlipDate"),
+						view.byId("PartyDate"),
+						view.byId("BillWeight")
+						// view.byId("Billbags"),
+						// view.byId("ReceiptNum")
+					];
+					jQuery.each(inputs, function (i, input) {
+						if (!input.getValue()) {
+							input.setValueState("Error");
+							//sap.m.MessageToast.show("Please Enter the Mandatory Fields!!!");
+						} else {
+							input.setValueState("None");
+						}
+
+					});
+					var canContinue = true;
+					jQuery.each(inputs, function (i, input) {
+						if (input.getValueState() === "Error") {
+							canContinue = false;
+							return false;
+						}
+					});
+					if (!canContinue) {
+						sap.m.MessageToast.show("Please Fill all Mandatory Fields");
+					} else {
+						// sap.m.MessageToast.show("Now you can perform Goods Movement");
+						// this.byId("BtnGoodMov").setVisible(true);
+						//	Column 1
+						var Gp_num = this.byId("GatePassNo");
+						var PO_num = this.byId("ipPONo");
+						//	var Brok_name = this.byId("BrokName");
+						//	var Vendor_name = this.byId("PartName");
+						var Transport_num = this.byId("LRGRno");
+						var vehicle_num = this.byId("Truckno");
+						var Station_num = this.byId("Station");
+						var Trans_Vendor_code = this.byId("TransDetail");
+						//	var Trans-Vendor_name = this.byId("VendName");
+
+						// Column 2
+
+						var Gp_date = this.byId("GatepassDate").getValue();
+						var PartyBill_num = this.byId("PartyBill");
+						var PartyBill_date = this.byId("PartyDate").getValue();
+						var Wt_PartyBill = this.byId("BillWeight");
+						var No_Bags = this.byId("Billbags");
+						var Wt_SlipNO = this.byId("WeightSlipNo");
+						var Wt_Slipdate = this.byId("WtSlipDate").getValue();
+						var Store_Loc = this.byId("Store_loc");
+
+						// Column 3
+						var Unload_Wt = this.byId("UnloadedWeight");
+						var Unload_Bags = this.byId("UnloadBags");
+						var Rejected_Wt = this.byId("RejectedWeight");
+						var Rejected_bags_Num = this.byId("RejectedBags");
+						var Torned_Bags_Num = this.byId("TornedBags");
+						var Avg_wt_bags = this.byId("Avg_wt");
+
+						// Column 4&nbsp;
+						var Mandi_Rec_num = this.byId("ReceiptNum");
+						var Mandi_tax_deduct = this.byId("MandiTax");
+						var Other_Deduct = this.byId("OtherDeduct");
+						var Any_Other_deduct = this.byId("AnyOtherDeduct");
+						var Rate_Diff = this.byId("RateDiff");
+						var Remarks = this.byId("remarksany");
+						// date check
+
+						var sDate = "1111-11-11T00:00:00";
+						//var day = new Date(data.startDate).getDate();
+						var dateFormat = sap.ui.core.format.DateFormat.getInstance({
+							pattern: "yyyy-MM-ddThh:mm:ss"
+						});
+						var dateFormatted = dateFormat.format(new Date(sDate));
+
+						/*	if (Gp_date == "") {
+								Gp_date = dateFormatted;
+							}*/
+						if (PartyBill_date == "") {
+							PartyBill_date = dateFormatted;
+						}
+						/*	if (Wt_Slipdate == "") {
+								Wt_Slipdate = dateFormatted;
+							}*/
+						if (PartyBill_date !== "") { //Gp_date !== "" || Wt_Slipdate !== "" ||&nbsp;
+
+							var oEntry = {};
+
+							//Column1
+							var QualityDeduct1 = this.byId("Quality_deduct").getSelected();
+							if (QualityDeduct1 == false) {
+								FlagVal = "";
+							} else {
+								FlagVal = "X";
+							}
+							var PAyWeight = this.byId("Pay_Weight").getSelected();
+							if (PAyWeight == false) {
+								PayOnWeight = "";
+							} else {
+								PayOnWeight = "X";
+							}
+							var Gunny = this.byId("GunnyBag_deduct").getSelected();
+							if (Gunny == false) {
+								GunnyFlagVal = "";
+							} else {
+								GunnyFlagVal = "X";
+							}
+							var Unload = this.byId("UnloadCharge_deduct").getSelected();
+							if (Unload == false) {
+								UnloadFlagVal = "";
+
+							} else {
+								UnloadFlagVal = "X";
+							}
+							// NoUnldChargeDed
+							// PaymentOnPbw
+							// NoGunnyDed
+							oEntry.QltyPar = FlagVal1;
+							oEntry.NoQltyDeduction = FlagVal;
+							oEntry.NoGunnyDed = GunnyFlagVal;
+							oEntry.NoUnldChargeDed = UnloadFlagVal;
+							oEntry.PaymentOnPbw = PayOnWeight;
+							oEntry.Werks = Plant_num;
+							oEntry.Bedat = Podate;
+							oEntry.Matnr = matcode;
+							oEntry.Gpassno = Gp_num.getValue();
+							oEntry.Ebeln = PO_num.getValue();
+							oEntry.Brokerno = BrokerNum;
+							oEntry.Brokername = Brok_name;
+							oEntry.Vendorno = Vend_code;
+							oEntry.Vendorname = Vend_name;
+
+							oEntry.TranspLrNo = Transport_num.getValue();
+							oEntry.Vehicleno = vehicle_num.getValue();
+							// oEntry.Station = Station_num.getValue();
+							if (Station_num.getValue() === "") {
+								sap.m.MessageBox.error("Station code is mandatory. Kindly select station code first.");
+								return false;
+							}
+							oEntry.StName = this.desc;
+							oEntry.Station = this.key;
+							oEntry.Transporter = Trans_Vendor_code.getValue();
+
+							//Column2
+							oEntry.Gpassdt = Gp_date;
+							oEntry.Bilno = PartyBill_num.getValue();
+							oEntry.Bildt = PartyBill_date;
+							oEntry.Bilwt = Wt_PartyBill.getValue();
+							oEntry.Bilbag = No_Bags.getValue();
+							oEntry.WtslipNo = Wt_SlipNO.getValue();
+							oEntry.WtslipDt = Wt_Slipdate;
+							oEntry.StorageLocation = Store_Loc.getValue();
+							// oEntry.DescOfSloc = Storage_Lgobe;
+
+							//Column3
+							oEntry.WtslipQty = Unload_Wt.getValue();
+							oEntry.WtslipBag = Unload_Bags.getValue();
+							oEntry.Rejwt = Rejected_Wt.getValue();
+							oEntry.RejBag = Rejected_bags_Num.getValue();
+							oEntry.Tornbag = Torned_Bags_Num.getValue();
+							oEntry.Bagavgwt = Avg_wt_bags.getValue();
+
+							//Column4
+							oEntry.MandiNo = Mandi_Rec_num.getValue();
+							oEntry.MandiTax = Mandi_tax_deduct.getValue();
+							oEntry.OtherDed = Other_Deduct.getValue();
+							oEntry.AnyOther = Any_Other_deduct.getValue();
+							oEntry.RateDifference = Rate_Diff.getValue();
+							oEntry.Message = Remarks.getValue();
+							// oEntry.CreateDate = "1111-11-11T00:00:00";
+							// oEntry.CreateTime = "PT11H00M00S";
+
+							var BillWeightzero = this.byId("BillWeight").getValue();
+							var Billbagszero = this.byId("Billbags").getValue();
+
+							//var Zeroregx = ;
+
+							if (BillWeightzero == 0) {
+								sap.m.MessageToast.show("Bill Weight can't be kept Zero");
+							}
+							/*else if (Billbagszero == 0) {
+								sap.m.MessageToast.show("Bill Bags can't be kept Zero");
+							}*/
+							else {
+								oModel.update("/GatepassdtlSet('" + GP_Num + "')", oEntry, {
+									method: "PUT",
+									success: function (oData, oResponse) {
+
+										var parser = new DOMParser();
+										var res = oResponse.headers["sap-message"];
+
+										if (res == undefined) {
+
+											sap.m.MessageToast.show("Data Has been Successfully Created");
+											oThis.getView().byId("Savebtn").setEnabled(false);
+											oThis.getView().byId("Cancelbtn").setEnabled(false);
+											oThis.FieldEditFalseSave();
+
+										} else {
+
+											var xmlDoc = parser.parseFromString(res, "text/xml");
+											var Number = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+											// sap.m.MessageToast.show(Number);
+											MessageBox.error(Number);
+
+										}
+
+										//	oThis.OnCancelBtn();
+										// var savebtn = this.getView().byId("GPSave");
+										// savebtn.setEnaled(false);
+
+										// var cancelbtn = this.getView().byId("GpCancel");
+										// cancelbtn.setEnaled(false);
+
+									},
+									error: function (cc, vv) {
+										sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
+									}
+								});
+							}
+						}
+
+					}
+
+					/*
+						//save all the fields in table and generate gate pass num and then lock all the fields.
+						//this function will be disable.
+						//	var A1 = this.getView().byId("").getValue();
+
+						var GPNum = this.byId("GatePassNo").getValue();
+						var PONum = this.byId("ipPONo").getValue();
+						var BrokerName = this.byId("BrokName").getValue();
+						var PartyName = this.byId("PartName").getValue();
+						var VendorCode = this.byId("VendCode").getValue();
+						var VendorName = this.byId("VendName").getValue();
+						var WeightSlip = this.byId("WeightSlipNo").getValue();
+						var WeightSlipDate = this.byId("WtSlipDate").getValue();
+						var UnloadWeight = this.byId("UnloadedWeight").getValue();
+						var rateDiff = this.byId("RateDiff").getValue();
+
+						if (GPNum == "" || PONum == "" || BrokerName == "" || PartyName == "" || VendorCode == "" || VendorName == "" || WeightSlip == "" ||
+							WeightSlipDate == "" || UnloadWeight == "" || rateDiff == "") {
+							sap.m.MessageToast.show("Please Fill all the Mandatory fields");
+							
+						} else {
+							this.byId("BtnGoodMov").setVisible(true);
+						}
+
+					*/
+
+					//
+
+				} else {
+
+					this.byId("Billbags").setValueState("None");
+					this.byId("ReceiptNum").setValueState("None");
+					this.byId("UnloadBags").setValueState("None");
+
+					var oThis = this;
+					var view = this.getView();
+					var inputs = [
+						view.byId("GatePassNo"),
+						view.byId("ipPONo"),
+						view.byId("GatepassDate"),
+						view.byId("PartyBill"),
+						// view.byId("VendName"),
+						view.byId("VendName"),
+						view.byId("WeightSlipNo"),
+						//	view.byId("WtSlipDate"),
+						view.byId("PartyDate"),
+						view.byId("BillWeight"),
+						view.byId("Billbags"),
+						// view.byId("ReceiptNum")
+					];
+					jQuery.each(inputs, function (i, input) {
+						if (!input.getValue()) {
+							input.setValueState("Error");
+							//sap.m.MessageToast.show("Please Enter the Mandatory Fields!!!");
+						} else {
+							input.setValueState("None");
+						}
+
+					});
+					var canContinue = true;
+					jQuery.each(inputs, function (i, input) {
+						if (input.getValueState() === "Error") {
+							canContinue = false;
+							return false;
+						}
+					});
+					if (!canContinue) {
+						sap.m.MessageToast.show("Please Fill all Mandatory Fields");
+					} else {
+						// sap.m.MessageToast.show("Now you can perform Goods Movement");
+						// this.byId("BtnGoodMov").setVisible(true);
+						//	Column 1
+						var Gp_num = this.byId("GatePassNo");
+						var PO_num = this.byId("ipPONo");
+						//	var Brok_name = this.byId("BrokName");
+						//	var Vendor_name = this.byId("PartName");
+						var Transport_num = this.byId("LRGRno");
+						var vehicle_num = this.byId("Truckno");
+						var Station_num = this.byId("Station");
+						var Trans_Vendor_code = this.byId("TransDetail");
+						//	var Trans-Vendor_name = this.byId("VendName");
+
+						// Column 2
+
+						var Gp_date = this.byId("GatepassDate").getValue();
+						var PartyBill_num = this.byId("PartyBill");
+						var PartyBill_date = this.byId("PartyDate").getValue();
+						var Wt_PartyBill = this.byId("BillWeight");
+						var No_Bags = this.byId("Billbags");
+						var Wt_SlipNO = this.byId("WeightSlipNo");
+						var Wt_Slipdate = this.byId("WtSlipDate").getValue();
+						var Store_Loc = this.byId("Store_loc");
+
+						// Column 3
+						var Unload_Wt = this.byId("UnloadedWeight");
+						var Unload_Bags = this.byId("UnloadBags");
+						var Rejected_Wt = this.byId("RejectedWeight");
+						var Rejected_bags_Num = this.byId("RejectedBags");
+						var Torned_Bags_Num = this.byId("TornedBags");
+						var Avg_wt_bags = this.byId("Avg_wt");
+
+						// Column 4&nbsp;
+						var Mandi_Rec_num = this.byId("ReceiptNum");
+						var Mandi_tax_deduct = this.byId("MandiTax");
+						var Other_Deduct = this.byId("OtherDeduct");
+						var Any_Other_deduct = this.byId("AnyOtherDeduct");
+						var Rate_Diff = this.byId("RateDiff");
+						var Remarks = this.byId("remarksany");
+						// date check
+
+						var sDate = "1111-11-11T00:00:00";
+						//var day = new Date(data.startDate).getDate();
+						var dateFormat = sap.ui.core.format.DateFormat.getInstance({
+							pattern: "yyyy-MM-ddThh:mm:ss"
+						});
+						var dateFormatted = dateFormat.format(new Date(sDate));
+
+						/*	if (Gp_date == "") {
+								Gp_date = dateFormatted;
+							}*/
+						if (PartyBill_date == "") {
+							PartyBill_date = dateFormatted;
+						}
+						/*	if (Wt_Slipdate == "") {
+								Wt_Slipdate = dateFormatted;
+							}*/
+						if (PartyBill_date !== "") { //Gp_date !== "" || Wt_Slipdate !== "" ||&nbsp;
+
+							var oEntry = {};
+
+							//Column1
+							var QualityDeduct1 = this.byId("Quality_deduct").getSelected();
+							if (QualityDeduct1 == false) {
+								FlagVal = "";
+							} else {
+								FlagVal = "X";
+							}
+							var PAyWeight = this.byId("Pay_Weight").getSelected();
+							if (PAyWeight == false) {
+								PayOnWeight = "";
+							} else {
+								PayOnWeight = "X";
+							}
+							var Gunny = this.byId("GunnyBag_deduct").getSelected();
+							if (Gunny == false) {
+								GunnyFlagVal = "";
+							} else {
+								GunnyFlagVal = "X";
+							}
+							var Unload = this.byId("UnloadCharge_deduct").getSelected();
+							if (Unload == false) {
+								UnloadFlagVal = "";
+
+							} else {
+								UnloadFlagVal = "X";
+							}
+							// NoUnldChargeDed
+							// PaymentOnPbw
+							// NoGunnyDed
+							oEntry.QltyPar = FlagVal1;
+							oEntry.NoQltyDeduction = FlagVal;
+							oEntry.NoGunnyDed = GunnyFlagVal;
+							oEntry.NoUnldChargeDed = UnloadFlagVal;
+							oEntry.PaymentOnPbw = PayOnWeight;
+							oEntry.Werks = Plant_num;
+							oEntry.Bedat = Podate;
+							oEntry.Matnr = matcode;
+							oEntry.Gpassno = Gp_num.getValue();
+							oEntry.Ebeln = PO_num.getValue();
+							oEntry.Brokerno = BrokerNum;
+							oEntry.Brokername = Brok_name;
+							oEntry.Vendorno = Vend_code;
+							oEntry.Vendorname = Vend_name;
+
+							oEntry.TranspLrNo = Transport_num.getValue();
+							oEntry.Vehicleno = vehicle_num.getValue();
+							// oEntry.Station = Station_num.getValue();
+							if (Station_num.getValue() === "") {
+								sap.m.MessageBox.error("Station code is mandatory. Kindly select station code first.");
+								return false;
+							}
+							oEntry.StName = this.desc;
+							oEntry.Station = this.key;
+							oEntry.Transporter = Trans_Vendor_code.getValue();
+
+							//Column2
+							oEntry.Gpassdt = Gp_date;
+							oEntry.Bilno = PartyBill_num.getValue();
+							oEntry.Bildt = PartyBill_date;
+							oEntry.Bilwt = Wt_PartyBill.getValue();
+							oEntry.Bilbag = No_Bags.getValue();
+							oEntry.WtslipNo = Wt_SlipNO.getValue();
+							oEntry.WtslipDt = Wt_Slipdate;
+							oEntry.StorageLocation = Store_Loc.getValue();
+							// oEntry.DescOfSloc = Storage_Lgobe;
+
+							//Column3
+							oEntry.WtslipQty = Unload_Wt.getValue();
+							oEntry.WtslipBag = Unload_Bags.getValue();
+							oEntry.Rejwt = Rejected_Wt.getValue();
+							oEntry.RejBag = Rejected_bags_Num.getValue();
+							oEntry.Tornbag = Torned_Bags_Num.getValue();
+							oEntry.Bagavgwt = Avg_wt_bags.getValue();
+
+							//Column4
+							oEntry.MandiNo = Mandi_Rec_num.getValue();
+							oEntry.MandiTax = Mandi_tax_deduct.getValue();
+							oEntry.OtherDed = Other_Deduct.getValue();
+							oEntry.AnyOther = Any_Other_deduct.getValue();
+							oEntry.RateDifference = Rate_Diff.getValue();
+							oEntry.Message = Remarks.getValue();
+							// oEntry.CreateDate = "1111-11-11T00:00:00";
+							// oEntry.CreateTime = "PT11H00M00S";
+
+							var BillWeightzero = this.byId("BillWeight").getValue();
+							var Billbagszero = this.byId("Billbags").getValue();
+
+							//var Zeroregx = ;
+
+							if (BillWeightzero == 0) {
+								sap.m.MessageToast.show("Bill Weight can't be kept Zero");
+							}
+							/*else if (Billbagszero == 0) {
+								sap.m.MessageToast.show("Bill Bags can't be kept Zero");
+							}*/
+							else {
+								oModel.update("/GatepassdtlSet('" + GP_Num + "')", oEntry, {
+									method: "PUT",
+									success: function (oData, oResponse) {
+
+										var parser = new DOMParser();
+										var res = oResponse.headers["sap-message"];
+
+										if (res == undefined) {
+
+											sap.m.MessageToast.show("Data Has been Successfully Created");
+											oThis.getView().byId("Savebtn").setEnabled(false);
+											oThis.getView().byId("Cancelbtn").setEnabled(false);
+											oThis.FieldEditFalseSave();
+
+										} else {
+
+											var xmlDoc = parser.parseFromString(res, "text/xml");
+											var Number = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+											// sap.m.MessageToast.show(Number);
+											MessageBox.error(Number);
+
+										}
+
+										//	oThis.OnCancelBtn();
+										// var savebtn = this.getView().byId("GPSave");
+										// savebtn.setEnaled(false);
+
+										// var cancelbtn = this.getView().byId("GpCancel");
+										// cancelbtn.setEnaled(false);
+
+									},
+									error: function (cc, vv) {
+										sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
+									}
+								});
+							}
+						}
+
+					}
+
+					/*
+						//save all the fields in table and generate gate pass num and then lock all the fields.
+						//this function will be disable.
+						//	var A1 = this.getView().byId("").getValue();
+
+						var GPNum = this.byId("GatePassNo").getValue();
+						var PONum = this.byId("ipPONo").getValue();
+						var BrokerName = this.byId("BrokName").getValue();
+						var PartyName = this.byId("PartName").getValue();
+						var VendorCode = this.byId("VendCode").getValue();
+						var VendorName = this.byId("VendName").getValue();
+						var WeightSlip = this.byId("WeightSlipNo").getValue();
+						var WeightSlipDate = this.byId("WtSlipDate").getValue();
+						var UnloadWeight = this.byId("UnloadedWeight").getValue();
+						var rateDiff = this.byId("RateDiff").getValue();
+
+						if (GPNum == "" || PONum == "" || BrokerName == "" || PartyName == "" || VendorCode == "" || VendorName == "" || WeightSlip == "" ||
+							WeightSlipDate == "" || UnloadWeight == "" || rateDiff == "") {
+							sap.m.MessageToast.show("Please Fill all the Mandatory fields");
+							
+						} else {
+							this.byId("BtnGoodMov").setVisible(true);
+						}
+
+					*/
+				}
+
+			} else {
+				sap.m.MessageToast.show("MIGO has already performed you cannot change Gate Pass");
+			}
+		},
+		OnCancelBtn: function () {
+			//Clears all the value and navto main page&nbsp;
+			var view = this.getView();
+			var inputs = [
+				view.byId("GatePassNo"),
+				view.byId("ipPONo"),
+				view.byId("BrokName"),
+				// view.byId("PartName"),
+				// view.byId("VendCode"),
+				view.byId("VendName"),
+				view.byId("WeightSlipNo"),
+				//	view.byId("WtSlipDate"),
+				view.byId("UnloadedWeight"),
+				view.byId("RateDiff")
+			];
+			jQuery.each(inputs, function (i, input) {
+				input.setValueState("None");
+			});
+			var oRouter = UIComponent.getRouterFor(this);
+			oRouter.navTo("Gate_Pass");
+
+		},
+		PerformGoodsMovment: function () {
+			var oThis = this;
+			this.OnSaveBtn();
+
+			var insp_lot = this.byId("InspLot").getValue();
+			var matdocNo = this.byId("MatDoc").getValue();
+			if (!insp_lot == "" && !matdocNo == "") {
+				sap.m.MessageToast.show("Goods Movement Already Performed");
+			} else {
+				//after gate pass created this function will  enable,&nbsp;
+				//open dialog box with post good movement fragment
+				//ok generate good movement num generated then return to individual gate pass screen.
+				//cancel return to the individual gate pass screen.
+				// Storage_Lgobe
+				var Gp_date = this.getView().byId("GatepassDate").getValue();
+				var PO_num = this.getView().byId("ipPONo").getValue();
+				var Gp_num = this.getView().byId("GatePassNo").getValue();
+				var Quantity = this.getView().byId("UnloadedWeight").getValue();
+				// var No_Bags = this.getView().byId("UnloadBags").getValue();
+				var No_Bags = this.getView().byId("Billbags").getValue();
+				var Storage_location = this.getView().byId("Store_loc").getValue();
+
+				var view = this.getView();
+				var inputs = [
+					// view.byId("GatePassNo"),
+					view.byId("Store_loc"),
+					view.byId("UnloadedWeight"),
+					view.byId("UnloadBags")
+
+				];
+				jQuery.each(inputs, function (i, input) {
+					if (!input.getValue()) {
+						input.setValueState("Error");
+						//sap.m.MessageToast.show("Please Enter the Mandatory Fields!!!");
+					} else {
+						input.setValueState("None");
+					}
+
+				});
+				var canContinue = true;
+				jQuery.each(inputs, function (i, input) {
+					if (input.getValueState() === "Error") {
+						canContinue = false;
+						return false;
+					}
+				});
+				if (!canContinue) {
+					sap.m.MessageToast.show("Please Fill all Mandatory Fields");
+				} else {
+					this.getView().byId("BtnGoodMov").setVisible(true);
+					// this.FieldEditFalseMigo();
+					// var oDate = new Date();
+					// var date = oDate.getDate() + '-' + (oDate.getMonth() + 1)+ '-' +&nbsp;
+					// 	oDate.getFullYear();
+					var dateFormat = sap.ui.core.format.DateFormat.getInstance({
+						pattern: "dd/MM/yyyy"
+					});
+					var dateFormatted = dateFormat.format(new Date(Gp_date));
+
+					if (!this._oDialog) {
+						this._oDialog = sap.ui.xmlfragment("MaizeProcurementPortal.MaizeProcurementPortal.view.GoodsMovement", this);
+						//	this._oDialog.setModel(this.getView().getModel());
+
+					}
+					sap.ui.getCore().byId("Goods_Date").setText(dateFormatted);
+					sap.ui.getCore().byId("Po_Num").setText(PO_num);
+					sap.ui.getCore().byId("Gp_Num").setText(Gp_num);
+					sap.ui.getCore().byId("quantity_Num").setText(Quantity);
+					sap.ui.getCore().byId("Bags_Num").setText(No_Bags);
+					sap.ui.getCore().byId("Store_locDialog").setText(Storage_location);
+
+					this._oDialog.open();
+
+				}
+			}
+		},
+		onSubmitGMDialog: function () {
+			this._oDialog.close();
+			var oThis = this;
+
+			var Gp_date_Val = this.byId("GatepassDate").getValue();
+			var Storage_Loc = this.byId("Store_loc").getValue();
+			var Po_Num_Val = sap.ui.getCore().byId("Po_Num").getText();
+			var Gp_Num_Val = sap.ui.getCore().byId("Gp_Num").getText();
+			var Bags_Num_Val = sap.ui.getCore().byId("Bags_Num").getText();
+			var Quantity_Val = sap.ui.getCore().byId("quantity_Num").getText();
+			var PartyBill_num = this.byId("PartyBill").getValue();
+			var PartyBill_date = this.byId("PartyDate").getValue();
+			var Vehicl_num = this.byId("Truckno").getValue();
+
+			var oEntry = {
+				"Gpassdt": Gp_date_Val,
+				"Bedat": Gp_date_Val,
+				"Ebeln": Po_Num_Val,
+				"Gpassno": Gp_Num_Val,
+				"WtslipQty": Quantity_Val,
+				"Bilbag": Bags_Num_Val,
+				"Bilno": PartyBill_num,
+				"Bildt": PartyBill_date,
+				"StorageLocation": Storage_Loc,
+				"Vehicleno": Vehicl_num
+			};
+
+			oModel.create("/MigoSet", oEntry, {
+				Method: "PUT",
+				success: function (oData, oResponse) {
+					// two condition of error and success messages&nbsp;
+					//if error then no further process if success then perform QA and then PAyment
+					Matdoc = oData.MatDoc;
+					var Docyr = oData.DocYear;
+					InspectionLot = oData.Insplot;
+
+					if (Matdoc == "" && Docyr == "0000") {
+						var parser = new DOMParser();
+						var res = oResponse.headers["sap-message"];
+						var xmlDoc = parser.parseFromString(res, "text/xml");
+						var Number = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+						// sap.m.MessageToast.show(Number);
+						MessageBox.error(Number);
+					} else {
+						// GRN NUMBER DISPLAYING
+						var concatmmg = Matdoc + "," + Docyr;
+						sap.m.MessageToast.show(concatmmg);
+
+						oThis.byId("MatDoc").setValue(Matdoc);
+						oThis.getView().byId("DocYr").setValue(Docyr);
+						oThis.getView().byId("InspLot").setValue(InspectionLot);
+						oThis.byId("BtnGenQA").setVisible(true);
+
+						sap.ui.getCore().byId("Goods_Date").setText("");
+						sap.ui.getCore().byId("Po_Num").setText("");
+						sap.ui.getCore().byId("Gp_Num").setText("");
+						sap.ui.getCore().byId("quantity_Num").setText("");
+						sap.ui.getCore().byId("Bags_Num").setText("");
+						sap.ui.getCore().byId("Store_locDialog").setText("");
+						oThis.FieldEditFalseMigo();
+
+					}
+
+				},
+				error: function (cc, vv) {
+
+					sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator QA");
+				}
+
+			});
+
+		},
+		onCancelGmDialog: function () {
+			this._oDialog.close();
+		},
+		PerformQA: function () {
+			//after good movements completed  this function should be available when user clicks QA then
+			//in dialog box perform QA screen parameters in form user save then save the record&nbsp;
+			//cancel clear fields then return to individual GP screen.
+			/*var QaDial = this.getView().byId("QADialog");*/
+			var oThis = this;
+			//QAcharSet  	"Insplot": InspectionLot,
+			var insp_lot = this.byId("InspLot").getValue();
+			if (insp_lot == "") {
+				sap.m.MessageToast.show("Inspection Lot Number not generated yet");
+			} else {
+				// var a = oModel.read("/QAcharSet?$filter=Insplot eq '" + InspectionLot + "'");
+				// console.log(a);
+				// var a = oModel.read("/QAcharSet?$filter=Insplot eq '" + InspectionLot + "'");
+				oModel.read("/QAcharSet?$filter=(Insplot eq '" + insp_lot + "')", {
+					success: function (data, response) {
+						var Length = data.results.length;
+						if (Length == "0") {
+							var parser = new DOMParser();
+							var res = response.headers["sap-message"];
+							var xmlDoc = parser.parseFromString(res, "text/xml");
+							var Number = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+							// sap.m.MessageToast.show(Number);
+							MessageBox.error(Number);
+						} else {
+							if (!oThis._oDialog1) {
+								oThis._oDialog1 = sap.ui.xmlfragment("MaizeProcurementPortal.MaizeProcurementPortal.view.PerformQA", oThis);
+								//	this._oDialog.setModel(this.getView().getModel());
+							}
+							oThis._oDialog1.open();
+
+							var i;
+							for (i = 0; i <= data.results.length; i++) {
+								var Inspchar = data.results[i].Inspchar;
+
+								if (Inspchar === "0010") {
+									var labelQA1 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel1").setVisible(true);
+									sap.ui.getCore().byId("QAip1").setVisible(true);
+									sap.ui.getCore().byId("QAip1").setRequired(true);
+									// sap.ui.getCore().byId("Num_Grain_Text").setVisible(true);
+									sap.ui.getCore().byId("QALabel1").setText(labelQA1);
+								}
+
+								if (Inspchar === "0020") {
+									var labelQA2 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel2").setVisible(true);
+									sap.ui.getCore().byId("QAip2").setVisible(true);
+									sap.ui.getCore().byId("QAip2").setRequired(true);
+									// sap.ui.getCore().byId("Moist_Single_text").setVisible(true);
+									sap.ui.getCore().byId("QALabel2").setText(labelQA2);
+								}
+
+								if (Inspchar === "0030") {
+									var labelQA22 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel3").setVisible(true);
+									sap.ui.getCore().byId("QAip3").setVisible(true);
+									sap.ui.getCore().byId("QAip3").setRequired(true);
+									// sap.ui.getCore().byId("Moist_Double_text").setVisible(true);
+									sap.ui.getCore().byId("QALabel3").setText(labelQA22);
+								}
+								if (Inspchar === "0040") {
+									var labelQA3 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel4").setVisible(true);
+									sap.ui.getCore().byId("QAip4").setVisible(true);
+									sap.ui.getCore().byId("QAip4").setRequired(true);
+									// sap.ui.getCore().byId("QALabel4_txt").setVisible(true);
+									sap.ui.getCore().byId("QALabel4").setText(labelQA3);
+								}
+								if (Inspchar === "0050") {
+									var labelQA4 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel5").setVisible(true);
+									sap.ui.getCore().byId("QAip5").setVisible(true);
+									sap.ui.getCore().byId("QAip5").setRequired(true);
+									// sap.ui.getCore().byId("QALabel5_txt").setVisible(true);
+									sap.ui.getCore().byId("QALabel5").setText(labelQA4);
+								}
+								if (Inspchar === "0060") {
+									var labelQA5 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel6").setVisible(true);
+									sap.ui.getCore().byId("QAip6").setVisible(true);
+									sap.ui.getCore().byId("QAip6").setRequired(true);
+									// sap.ui.getCore().byId("QALabel6_txt").setVisible(true);
+									sap.ui.getCore().byId("QALabel6").setText(labelQA5);
+								}
+								if (Inspchar === "0070") {
+									var labelQA6 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel7").setVisible(true);
+									sap.ui.getCore().byId("QAip7").setVisible(true);
+									sap.ui.getCore().byId("QAip7").setRequired(true);
+									// sap.ui.getCore().byId("QALabel7_txt").setVisible(true);
+									sap.ui.getCore().byId("QALabel7").setText(labelQA6);
+								}
+								if (Inspchar === "0080") {
+									var labelQA7 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel8").setVisible(true);
+									sap.ui.getCore().byId("QAip8").setVisible(true);
+									sap.ui.getCore().byId("QAip8").setRequired(true);
+									// sap.ui.getCore().byId("QALabel8_txt").setVisible(true);
+									sap.ui.getCore().byId("QALabel8").setText(labelQA7);
+								}
+								if (Inspchar === "0090") {
+									var labelQA8 = data.results[i].CharDescr;
+									sap.ui.getCore().byId("QALabel9").setVisible(true);
+									// sap.ui.getCore().byId("QALabel9_txt").setVisible(true);
+									sap.ui.getCore().byId("QAip9").setVisible(true);
+									sap.ui.getCore().byId("QAip9").setRequired(true);
+									sap.ui.getCore().byId("QALabel9").setText(labelQA8);
+								}
+								/*if (9 <= Length) {
+										var labelQA9 = data.results[9].CharDescr;
+										sap.ui.getCore().byId("QALabel10").setVisible(true);
+										sap.ui.getCore().byId("unload_charges").setVisible(true);
+										sap.ui.getCore().byId("QALabel10_txt").setVisible(true);
+										sap.ui.getCore().byId("QALabel10").setText(labelQA9);
+									}*/
+							}
+						}
+					},
+					error: function (cc, vv) {
+
+						// var parser = new DOMParser();
+						// var xmlDoc = parser.parseFromString(cc.response.body, "text/xml");
+						// var msg = xmlDoc.getElementsByTagName("message")[0].innerHTML;
+						sap.m.MessageToast.show("Please Contact your Administrator.");
+					}
+
+				});
+				// if (!oThis._oDialog1) {
+				// 	oThis._oDialog1 = sap.ui.xmlfragment("MaizeProcurementPortal.MaizeProcurementPortal.view.PerformQA", oThis);
+				// 	//	this._oDialog.setModel(this.getView().getModel());
+				// }
+				// oThis._oDialog1.open();
+			}
+
+		},
+		onSubmitQADialog: function () {
+			this.refreshInputBinding();
+			//QA Dialog Submit PErform here
+			var oThis = this;
+			var inputs = [
+				// view.byId("GatePassNo"),
+				sap.ui.getCore().byId("QAip1"),
+				sap.ui.getCore().byId("QAip2"),
+				sap.ui.getCore().byId("QAip3"),
+				sap.ui.getCore().byId("QAip4"),
+				sap.ui.getCore().byId("QAip5"),
+				sap.ui.getCore().byId("QAip6"),
+				sap.ui.getCore().byId("QAip7"),
+				sap.ui.getCore().byId("QAip8"),
+				sap.ui.getCore().byId("QAip9")
+
+			];
+			//	$("input").attr("required", "true");
+
+			// var PositiveRegx = /^[0-9]+[0-9]*$/;
+			var PositiveRegx = /^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/;
+			jQuery.each(inputs, function (i, input) {
+				if (input.getRequired() == true) {
+					// var all&nbsp;
+					if (input.getValue() == "") {
+						input.setValueState("Error");
+						//sap.m.MessageToast.show("Please Enter the Mandatory Fields!!!");
+					} else {
+						if (input.getValue().match(PositiveRegx)) {
+							input.setValueState("None");
+						} else {
+							sap.m.MessageToast.show("Please Enter the Positive Fields!!!");
+							input.setValueState("Error");
+						}
+					}
+				}
+
+			});
+			var canContinue = true;
+			jQuery.each(inputs, function (i, input) {
+				if (input.getValueState() === "Error") {
+					canContinue = false;
+					return false;
+				}
+			});
+			if (!canContinue) {
+				sap.m.MessageToast.show("Please Fill all Mandatory fields with Positive Numbers");
+			} else {
+				this._oDialog1.close();
+				var oThis = this;
+				var grain_num = sap.ui.getCore().byId("QAip1").getValue();
+				var moist_single = sap.ui.getCore().byId("QAip2").getValue();
+				var moist_double = sap.ui.getCore().byId("QAip3").getValue();
+				var unmat_grain = sap.ui.getCore().byId("QAip4").getValue();
+				var water_damage = sap.ui.getCore().byId("QAip5").getValue();
+				var weeviled_damage = sap.ui.getCore().byId("QAip6").getValue();
+				var broken = sap.ui.getCore().byId("QAip7").getValue();
+				var dust = sap.ui.getCore().byId("QAip8").getValue();
+				var cobs = sap.ui.getCore().byId("QAip9").getValue();
+				var insp_lot = this.byId("InspLot").getValue();
+				/*	var unload_charge = sap.ui.getCore().byId("unload_charges").getValue();
+					var cash_disc = sap.ui.getCore().byId("cash_disc").getValue();*/
+				// var gpdate = this.byId("GatepassDate").getValue();
+				// var PONum = this.byId("ipPONo").getValue();
+
+				var oEntry = {
+					"Field10": grain_num,
+					"Field20": moist_single,
+					"Field30": moist_double,
+					"Field40": unmat_grain,
+					"Field50": water_damage,
+					"Field60": weeviled_damage,
+					"Field70": broken,
+					"Field80": dust,
+					"Field90": cobs,
+					"Insplot": insp_lot,
+					// "Unlodchg": unload_charge,
+					//	"Cashdisc": cash_disc,
+					// "Matnr": matcode,
+					// "MatDoc": Matdoc,
+					"ChnoField10": "0010",
+					"ChnoField20": "0020",
+					"ChnoField30": "0030",
+					"ChnoField40": "0040",
+					"ChnoField50": "0050",
+					"ChnoField60": "0060",
+					"ChnoField70": "0070",
+					"ChnoField80": "0080",
+					"ChnoField90": "0090"
+				};
+
+				oModel.create("/QASet", oEntry, {
+					Method: "PUT",
+					success: function (oData, oResponse) {
+						oThis.byId("BtnGenPay").setVisible(true);
+						oThis.onCancelQADialog();
+						var QAMsg = oData.Message;
+						var usg_dsc = oData.UsageDecision;
+
+						// two condition of error and success messages&nbsp;
+						//if error then no further process if success then perform QA and then PAyment
+						if (QAMsg == "") {
+							var parser = new DOMParser();
+							var res = oResponse.headers["sap-message"];
+							var xmlDoc = parser.parseFromString(res, "text/xml");
+							var Number = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+							// sap.m.MessageToast.show(Number);
+							MessageBox.error(Number);
+						} else {
+							// sap.m.MessageToast.show(QAMsg);
+							MessageBox.success(QAMsg);
+							oThis.byId("BtnGenQA").setVisible(true);
+							if (usg_dsc == "A") {
+								var AcceptA = "A-Accept";
+								oThis.byId("UsageDes").setValue(AcceptA);
+							} else {
+								oThis.byId("UsageDes").setValue(usg_dsc);
+							}
+						}
+						this.refreshInputBinding();
+
+					},
+					error: function (cc, vv) {
+						// sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator QA");
+
+					}
+
+				});
+
+			}
+
+		},
+		refreshInputBinding: function () {
+			sap.ui.getCore().byId("QALabel1").setVisible(false);
+			sap.ui.getCore().byId("QAip1").setVisible(false);
+			sap.ui.getCore().byId("QALabel2").setVisible(false);
+			sap.ui.getCore().byId("QAip2").setVisible(false);
+			sap.ui.getCore().byId("QALabel3").setVisible(false);
+			sap.ui.getCore().byId("QAip3").setVisible(false);
+			sap.ui.getCore().byId("QALabel4").setVisible(false);
+			sap.ui.getCore().byId("QAip4").setVisible(false);
+			sap.ui.getCore().byId("QALabel5").setVisible(false);
+			sap.ui.getCore().byId("QAip5").setVisible(false);
+			sap.ui.getCore().byId("QALabel6").setVisible(false);
+			sap.ui.getCore().byId("QAip6").setVisible(false);
+			sap.ui.getCore().byId("QALabel7").setVisible(false);
+			sap.ui.getCore().byId("QAip7").setVisible(false);
+			sap.ui.getCore().byId("QALabel8").setVisible(false);
+			sap.ui.getCore().byId("QAip8").setVisible(false);
+			sap.ui.getCore().byId("QALabel9").setVisible(false);
+			sap.ui.getCore().byId("QAip9").setVisible(false);
+
+		},
+		onCancelQADialog: function () {
+			//QA Dialog Cancel perform here.
+			this._oDialog1.close();
+			this.refreshInputBinding();
+		},
+		GeneratePayment: function () {
+			//after QA completed  this function should be available when user clicks QA then
+			//in dialog box payment calculated from backend and calculated on screen in display mode only.
+			//cancel return to individual GP screen.
+
+			//	MessageBox.success("Your Payment is Generated and your total Amount is  ₹ 22300");
+
+			//after QA completed  this function should be available when user clicks QA then
+			//in dialog box payment calculated from backend and calculated on screen in display mode only.
+			//cancel return to individual GP screen.
+
+			//	MessageBox.success("Your Payment is Generated and your total Amount is  ₹ 22300");
+			var Gpnum = this.byId("GatePassNo").getValue();
+			var oEntry = {
+				"Gpassno": Gpnum
+			};
+			oModel.create("PaymentSet", oEntry, {
+				Method: "PUT",
+				success: function (oData, oResponse) {
+					var msg = oData.Message;
+					var NetAmnt = oData.NetPayAmount;
+
+					if (msg == "") {
+						var amnt = "Your Net Payable Amount is: ";
+						MessageBox.success(amnt + " " + NetAmnt);
+					} else {
+						MessageBox.error(msg);
+					}
+					// 	oThis.byId("BtnGenPay").setVisible(true);
+					// 	oThis.onCancelQADialog();
+
+					// 	var QAMsg = oData.Message;
+
+					// 	// two condition of error and success messages&nbsp;
+					// 	//if error then no further process if success then perform QA and then PAyment
+					// 	if (QAMsg == "") {
+					// 		var parser = new DOMParser();
+					// 		var res = oResponse.headers["sap-message"];
+					// 		var xmlDoc = parser.parseFromString(res, "text/xml");
+					// 		var Number = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+					// 		// sap.m.MessageToast.show(Number);
+					// 		MessageBox.error(Number);
+					// 	} else {
+					// 		// sap.m.MessageToast.show(QAMsg);
+					// 		MessageBox.success(QAMsg);
+					// 		oThis.byId("BtnGenQA").setVisible(true);
+					// 	}
+
+				},
+				error: function (cc, vv) {
+					// sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator QA");
+
+				}
+			});
+		},
+		FieldEditFalseSave: function () {
+			// Column1
+			this.byId("LRGRno").setEditable(false);
+			this.byId("Truckno").setEditable(false);
+			this.byId("Station").setEditable(false);
+			this.byId("TransDetail").setEditable(false);
+			//	this.byId("VendName").setEditable(false);
+			// Column2
+			// this.byId("GatepassDate").setEditable(false);
+			this.byId("PartyBill").setEditable(false);
+			this.byId("PartyDate").setEditable(false);
+			this.byId("BillWeight").setEditable(false);
+			this.byId("Billbags").setEditable(false);
+			this.byId("WeightSlipNo").setEditable(false);
+			// this.byId("WtSlipDate").setEditable(false);
+
+		},
+		AllFieldEditableTrue: function () {
+
+			this.byId("Savebtn").setVisible(true);
+			this.byId("Cancelbtn").setVisible(true);
+			this.byId("BtnGoodMov").setVisible(true);
+			this.byId("BtnGenQA").setVisible(true);
+			this.byId("BtnGenPay").setVisible(true);
+			this.byId("printGp").setVisible(false);
+
+			// Column1
+			this.byId("LRGRno").setEditable(true);
+			this.byId("Truckno").setEditable(true);
+			this.byId("Station").setEditable(true);
+			this.byId("TransDetail").setEditable(true);
+			//	this.byId("VendName").setEditable(true);
+			// Column2
+			// this.byId("GatepassDate").setEditable(true);
+			this.byId("PartyBill").setEditable(true);
+			// this.byId("PartyDate").setEditable(true);
+			this.byId("BillWeight").setEditable(true);
+			this.byId("Billbags").setEditable(true);
+			this.byId("WeightSlipNo").setEditable(true);
+			this.byId("Quality_deduct").setEditable(true);
+			this.byId("Pay_Weight").setEditable(true);
+			this.byId("GunnyBag_deduct").setEditable(true);
+			this.byId("UnloadCharge_deduct").setEditable(true);
+
+			// Column3
+			this.byId("Store_loc").setEditable(true);
+			this.byId("UnloadedWeight").setEditable(true);
+			// this.byId("UnloadBags").setEditable(true);
+			this.byId("RejectedWeight").setEditable(true);
+			this.byId("RejectedBags").setEditable(true);
+			this.byId("TornedBags").setEditable(true);
+			// this.byId("SpecsQuality").setEditable(true);
+
+			// Column4
+			// this.byId("ReceiptNum").setEditable(true);
+			this.byId("MandiTax").setEditable(true);
+			this.byId("OtherDeduct").setEditable(true);
+			this.byId("AnyOtherDeduct").setEditable(true);
+			this.byId("RateDiff").setEditable(true);
+			this.byId("remarksany").setEditable(true);
+
+			this.getView().byId("Savebtn").setEnabled(true);
+			this.getView().byId("Cancelbtn").setEnabled(true);
+
+		},
+		AllFieldEditableFalse: function () {
+
+			var oThis = this;
+			if (QualityDeduct == "X") {
+				// Check box apply true
+				oThis.byId("Quality_deduct").setSelected(true);
+			} else {
+				oThis.byId("Quality_deduct").setSelected(false);
+			}
+			if (PayOnWeight == "X") {
+				// Check box apply true
+				oThis.byId("Pay_Weight").setSelected(true);
+			} else {
+				oThis.byId("Pay_Weight").setSelected(false);
+			}
+
+			if (GunnyFlagVal == "X") {
+				// Check box apply true
+				oThis.byId("GunnyBag_deduct").setSelected(true);
+			} else {
+				oThis.byId("GunnyBag_deduct").setSelected(false);
+			}
+
+			if (UnloadFlagVal == "X") {
+				// Check box apply true
+				oThis.byId("UnloadCharge_deduct").setSelected(true);
+			} else {
+				oThis.byId("UnloadCharge_deduct").setSelected(false);
+			}
+			// if (Specs_quality == "X") {
+			// 	oThis.byId("SpecsQuality").setSelected(true);
+			// } else {
+			// 	// Check box apply false
+			// 	oThis.byId("SpecsQuality").setSelected(false);
+			// }
+			this.byId("Savebtn").setVisible(false);
+			this.byId("Cancelbtn").setVisible(false);
+			this.byId("BtnGoodMov").setVisible(false);
+			this.byId("BtnGenQA").setVisible(false);
+			this.byId("BtnGenPay").setVisible(false);
+			this.byId("printGp").setVisible(true);
+
+			// Column1
+			this.byId("LRGRno").setEditable(false);
+			this.byId("Truckno").setEditable(false);
+			this.byId("Station").setEditable(false);
+			this.byId("TransDetail").setEditable(false);
+			//	this.byId("VendName").setEditable(false);
+			// Column2
+			// this.byId("GatepassDate").setEditable(false);
+			this.byId("PartyBill").setEditable(false);
+			// this.byId("PartyDate").setEditable(false);
+			this.byId("BillWeight").setEditable(false);
+			this.byId("Billbags").setEditable(false);
+			this.byId("WeightSlipNo").setEditable(false);
+			this.byId("Quality_deduct").setEditable(false);
+			this.byId("Pay_Weight").setEditable(false);
+			this.byId("GunnyBag_deduct").setEditable(false);
+			this.byId("UnloadCharge_deduct").setEditable(false);
+
+			// Column3
+			this.byId("Store_loc").setEditable(false);
+			this.byId("UnloadedWeight").setEditable(false);
+			this.byId("UnloadBags").setEditable(false);
+			this.byId("RejectedWeight").setEditable(false);
+			this.byId("RejectedBags").setEditable(false);
+			this.byId("TornedBags").setEditable(false);
+			// this.byId("SpecsQuality").setEditable(false);
+
+			// Column4
+			this.byId("ReceiptNum").setEditable(false);
+			this.byId("MandiTax").setEditable(false);
+			this.byId("OtherDeduct").setEditable(false);
+			this.byId("AnyOtherDeduct").setEditable(false);
+			this.byId("RateDiff").setEditable(false);
+			this.byId("remarksany").setEditable(false);
+
+		},
+		SetZeroVal: function () {
+			this.byId("BillWeight").setValue("0.00");
+			this.byId("UnloadedWeight").setValue("0.00");
+			this.byId("UnloadBags").setValue("0.00");
+			this.byId("RejectedWeight").setValue("0.00");
+			this.byId("RejectedBags").setValue("0.00");
+			this.byId("TornedBags").setValue("0.00");
+			this.byId("RateDiff").setValue("0.00");
+			this.byId("Avg_wt").setValue("0");
+		},
+
+		FieldEditFalseMigo: function () {
+
+			// Column3
+			this.byId("Store_loc").setEditable(false);
+			this.byId("UnloadedWeight").setEditable(false);
+			this.byId("UnloadBags").setEditable(false);
+			this.byId("RejectedWeight").setEditable(false);
+			this.byId("RejectedBags").setEditable(false);
+			this.byId("TornedBags").setEditable(false);
+			this.byId("Avg_wt").setEditable(false);
+
+			// Column4
+			this.byId("ReceiptNum").setEditable(false);
+			this.byId("MandiTax").setEditable(false);
+			this.byId("OtherDeduct").setEditable(false);
+			this.byId("AnyOtherDeduct").setEditable(false);
+			this.byId("RateDiff").setEditable(false);
+
+		},
+		// PRint GAte Pass Functionality
+		printgp: function () {
+
+			var that = this;
+			var Gp_num = this.byId("GatePassNo").getValue();
+			var Fmname = "GATEPASS";
+
+			oModel.read("/SmartformSet(Gpassno='" + Gp_num + "',Formname='" + Fmname + "')/$value", {
+				method: "GET",
+				success: function (data, response) {
+
+					var img = response.requestUri;
+					// var ds = data.Url;
+
+					/*	html.setContent("<iframe src=" + ds + " width='700' height='700'></iframe>");
+
+						oPanel.addContent(html);
+						oPanel.placeAt("content1");*/
+
+					//	var oHtml = that.getView().byId("printform").setSource(img);
+					// oHtml.setContent("<iframe src='" + ds + "' height='700' width='1300'></iframe>");
+
+					that._pdfViewer.setSource(img);
+					that._pdfViewer.setTitle("Gate Pass Form");
+					that._pdfViewer.open();
+				},
+				error: function (cc, vv) {
+					sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
+				}
+			});
+		},
+
+		// Code for Station code and Station Name (F4 help) Start (Kathan)
+
+		ValueHelpRequestforStation: function () {
+			oModel.read("zmm_stationset", {
+				method: "GET",
+				success: function (oData, oResponse) {
+					var oModel = new sap.ui.model.json.JSONModel();
+					oModel.setData(oData);
+					this.getOwnerComponent().setModel(oModel, "StationModel");
+					if (!this.StationFrag) {
+						this.StationFrag = sap.ui.xmlfragment("MaizeProcurementPortal.MaizeProcurementPortal.Fragment.StationF4", this);
+						this.getView().addDependent(this.StationFrag);
+					}
+					this.StationFrag.open();
+				}.bind(this),
+				error: function (error) { }
+			});
+		},
+
+		closeDlg: function (oEvent) {
+			var oSelectedItem = oEvent.getParameter("selectedItem");
+			if (oSelectedItem) {
+				this.desc = oSelectedItem.getDescription();
+				this.key = oSelectedItem.getTitle();
+			}
+			this.getView().byId("Station").setValue(this.desc);
+			this.StationFrag.destroy();
+			this.StationFrag = undefined;
+		},
+
+		livechangesearch: function (oEvent) {
+			var sValue = oEvent.mParameters.value;
+			var oFilter = new sap.ui.model.Filter([
+				new sap.ui.model.Filter("ST_CODE", sap.ui.model.FilterOperator.Contains, sValue),
+				new sap.ui.model.Filter("ST_NAME", sap.ui.model.FilterOperator.Contains, sValue)
+			]);
+			var oBinding = sap.ui.getCore().byId("StationDialog").getBinding("items");
+			oBinding.filter([oFilter]);
+		}
+
+		// Code for Station code and Station Name (F4 help) End
+
+		/**
+		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
+		 * (NOT before the first rendering! onInit() is used for that one!).
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChanDispScreen
+		 */
+		//	onBeforeRendering: function() {
+		//
+		//	},
+
+		/**
+		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
+		 * This hook is the same one that SAPUI5 controls get after being rendered.
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChanDispScreen
+		 */
+		//	onAfterRendering: function() {
+		//
+		//	},
+
+		/**
+		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+		 * @memberOf MaizeProcurementPortal.MaizeProcurementPortal.view.ChanDispScreen
+		 */
+		//	onExit: function() {
+		//
+		//	}
+
+	});
+
+});

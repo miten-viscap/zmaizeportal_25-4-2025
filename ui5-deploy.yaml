@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: maizeprocurementportal.maizeprocurementportal
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        log: 5
+        target:
+          url: http://115.124.114.198:8009
+          client: '800'
+        app:
+          name: ZMAIZEPORTAL
+          package: ZMAIZE1
+          transport: DEVK906771
+        exclude:
+          - /test/

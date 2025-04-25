@@ -1,2 +1,11 @@
-sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.View1",{onInit:function(){}})});
-//# sourceMappingURL=View1.controller.js.map
+sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function (Controller) {
+	"use strict";
+
+	return Controller.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.View1", {
+		onInit: function () {
+
+		}
+	});
+});
