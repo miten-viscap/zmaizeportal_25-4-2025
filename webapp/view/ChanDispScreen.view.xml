@@ -1,0 +1,142 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:simpleform="sap.ui.layout.form"
+controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.ChanDispScreen" xmlns:html="http://www.w3.org/1999/xhtml">
+<App>
+	<pages>
+		<Page title="Change/Display Screen" showNavButton="true" navButtonPress="onNavBack" class="chandisp">
+			<content>
+				<!--<Panel headerText="Overview" class="txtcolor sapUiSmallMarginTop" expandable="false" expanded="true">-->
+				<Title text=""></Title>
+				<!--</Panel>
+					<Panel headerText="Details" class="txtcolor sapUiSmallMarginTop" expandable="false" expanded="true">-->
+				<Title text=""></Title>
+				<l:BlockLayout>
+					<l:BlockLayoutRow accentCells="Accent1">
+						<l:BlockLayoutCell>
+							<simpleform:SimpleForm class="sapUiSmallMarginTop" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" editable="true" layout="ResponsiveGridLayout">
+								<Label text="Gate Pass No." required="true" design="Bold" class="sapUiTinyMarginTop"></Label>
+								<Input id="GatePassNo" editable="false"></Input>
+								<Label text="Purchase Order No." required="true" design="Bold"/>
+								<Input id="ipPONo" showSuggestion="false" editable="false"/>
+								<Label text="Purchase Order date" design="Bold"></Label>
+								<DatePicker id="Po_date" editable="false" displayFormat="dd/MM/yyyy"></DatePicker>
+								<Label text="Broker Name" design="Bold"/>
+								<Input id="BrokName" editable="false"/>
+								<Label text="Vendor Name" required="true" design="Bold"/>
+								<Input id="VendName" editable="false"/>
+								<Label text="Transporter LR No." design="Bold"/>
+								<Input id="LRGRno" showSuggestion="false" editable="false" placeholder="LR/GR Number"/>
+								<Label text="Vehicle No." design="Bold"/>
+								<Input editable="false" id="Truckno" showSuggestion="false" placeholder="Truck Number"/>
+								<Label text="Station" design="Bold"/>
+								<!--<Input id="Station" editable="false" showSuggestion="false" type="Text" placeholder="Enter a Station"/>-->
+								<Input id="Station" editable="false" required="true" showSuggestion="false" type="Text" showValueHelp="true" valueHelpOnly="true"
+									valueHelpRequest="ValueHelpRequestforStation" placeholder="Enter a Station"/>
+							</simpleform:SimpleForm>
+							<Label text="Transporter" design="Bold" class="sapUiSmallMarginBegin"/>
+							<Input id="TransDetail" editable="false" showSuggestion="false" type="Text" placeholder="Fill Transporter Name"
+								class="sapUiSmallMarginBegin"/>
+						</l:BlockLayoutCell>
+						<l:BlockLayoutCell>
+							<simpleform:SimpleForm class="sapUiSmallMarginTop" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" editable="true" layout="ResponsiveGridLayout">
+								<Label text="Gate Pass Date" design="Bold" class="sapUiTinyMarginTop" required="true"></Label>
+								<DatePicker id="GatepassDate" editable="false" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-ddThh:mm:ss"></DatePicker>
+								<Label text="Party's Bill No. " design="Bold" required="true"/>
+								<Input id="PartyBill" editable="false" showSuggestion="false" placeholder="Fill Party's Bill No." maxLength="15"/>
+								<Label text=" Party's Bill Date" design="Bold" required="true"/>
+								<DatePicker id="PartyDate" editable="false" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-ddThh:mm:ss"></DatePicker>
+								<Label text="Weight (Party Bill)" design="Bold" required="true"/>
+								<Input id="BillWeight" editable="false" change="onInputDecimalChange" maxLength="8" showSuggestion="false" type="Number"
+									placeholder="Enter Bill Weight "/>
+								<Label text=" No. of Bags (Party Bill) " design="Bold" id="labNoBags"/>
+								<Input liveChange="inputlivebags" id="Billbags" editable="true" showSuggestion="false" type="Text" change="onInputDecimalChange1"
+									maxLength="8" placeholder="Enter Bill Bags"/>
+								<Label text="Weight Slip No." required="true" design="Bold"/>
+								<Input id="WeightSlipNo" editable="false" showSuggestion="false" maxLength="10" type="Text" change="handleValidationForAll"
+									placeholder="Enter Weight Slip Number"/>
+								<Label text=" Weight Slip Date" required="true" design="Bold"/>
+								<DatePicker id="WtSlipDate" editable="false" value="28/03/2019" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-ddThh:mm:ss"></DatePicker>
+								<Label text="Storage Location" design="Bold" required="true"></Label>
+								<Input id="Store_loc" maxLength="4" editable="false" placeholder="Enter Storage Location" liveChange="Stor_caps"></Input>
+								<Label text="Mandi Receipt No. " id="labMandirec" design="Bold" class="sapUiTinyMarginTop"></Label>
+								<Input id="ReceiptNum" editable="false" showSuggestion="false" maxLength="20" change="handleValidationForAll"
+									placeholder="Enter Mandi Receipt Number"/>
+							</simpleform:SimpleForm>
+						</l:BlockLayoutCell>
+						<l:BlockLayoutCell>
+							<simpleform:SimpleForm class="sapUiMediumMarginTop" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" editable="true" layout="ResponsiveGridLayout">
+								<Label text=" Unloaded Weight (MT)" required="true" design="Bold"/>
+								<Input id="UnloadedWeight" editable="false" showSuggestion="false" type="Number" change="DivAvgWt" placeholder="Enter Unloaded Weight"/>
+								<Label text="No. of Unloaded Bags " design="Bold" id="lanNoUnloadBags"/>
+								<Input id="UnloadBags" editable="true" showSuggestion="false" type="Number" change="DivAvgWt" placeholder="Enter Unloaded Bags"/>
+								<Label text=" Rejected Weight (MT)" design="Bold"/>
+								<Input id="RejectedWeight" editable="false" showSuggestion="false" type="Number" maxLength="8" change="onInputDecimalChange3"
+									placeholder="Enter Rejected Weight"/>
+								<Label text="No. of Rejected Bags " design="Bold"/>
+								<Input id="RejectedBags" liveChange="inputlivebags2" editable="false" showSuggestion="false" type="Text" change="handleValidationForAll"
+									placeholder=" EnterRejected Bags "/>
+								<Label text=" No. of Torned Bags " design="Bold"/>
+								<Input id="TornedBags" editable="false" showSuggestion="false" type="Text" maxLength="8" change="onInputDecimalChange2"
+									placeholder="Enter Torned Bags" liveChange="inputlivebags3"/>
+							</simpleform:SimpleForm>
+							<Label text=" Average Weight per bag " design="Bold" class="sapUiSmallMarginBegin"/>
+							<Input id="Avg_wt" editable="false" showSuggestion="false" type="Text" placeholder="Enter Averge Weight of Bag"
+								class="sapUiSmallMarginBegin"/>
+							<Label text=" Material Document No. " design="Bold" class="sapUiSmallMarginBegin"/>
+							<Input id="MatDoc" editable="false" class="sapUiSmallMarginBegin"/>
+							<Label text=" Document Year " design="Bold" class="sapUiSmallMarginBegin"/>
+							<Input id="DocYr" editable="false" class="sapUiSmallMarginBegin"/>
+							<!--<CheckBox id="SpecsQuality" editable="false" text="PO Specific Quality Parameters" selected="false" select="CheckBox2"-->
+							<!--	class="sapUiTinyMarginTop"></CheckBox>-->
+							<CheckBox id="Quality_deduct" editable="false" text="No Quality Deduction" selected="false" class="sapUiTinyMarginTop" select="CheckBox1"></CheckBox>
+							<CheckBox id="Pay_Weight" text="Payment on Party Bill Weight" selected="false" select="CheBoxPay"></CheckBox>
+						</l:BlockLayoutCell>
+						<l:BlockLayoutCell>
+							<simpleform:SimpleForm class="sapUiMediumMarginTop" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" editable="true" layout="ResponsiveGridLayout">
+								<Label text=" Mandi Tax " design="Bold"/>
+								<Input id="MandiTax" editable="false" showSuggestion="false" type="Number" change="handleValidationForAll" placeholder="Enter Mandi Tax"/>
+								<Label text=" Other deduction " design="Bold"/>
+								<Input id="OtherDeduct" editable="false" showSuggestion="false" type="Number" change="handleValidationForAll"
+									placeholder=" Other deduction if any"/>
+								<Label text=" Any other deduction " design="Bold"/>
+								<Input id="AnyOtherDeduct" editable="false" showSuggestion="false" type="Number" change="handleValidationForAll"
+									placeholder=" Enter Other deduction"/>
+								<Label text="Rate Difference " required="true" design="Bold"/>
+								<Input id="RateDiff" editable="false" showSuggestion="false" type="Number" change="handleValidationForAll"
+									placeholder="Enter Rate Difference"/>
+								<Label text="Inspection Lot No." design="Bold"/>
+								<Input id="InspLot" showSuggestion="false" editable="false" type="Text" placeholder="Inspection Lot Number"/>
+								<Label text="Usage Decision" design="Bold"></Label>
+								<Input id="UsageDes" editable="false"></Input>
+								<Label text="Remarks" design="Bold"></Label>
+								<Input id="remarksany" editable="false" maxLength="220"></Input>
+							</simpleform:SimpleForm>
+							<CheckBox id="GunnyBag_deduct" editable="false" text="No Gunny Bag Deduction" selected="false" select="GunnyBagDed"></CheckBox>
+							<CheckBox id="UnloadCharge_deduct" editable="false" text="No Unloadinging Charges Deduction" selected="false" select="UnloadChargeDed"></CheckBox>
+						</l:BlockLayoutCell>
+					</l:BlockLayoutRow>
+				</l:BlockLayout>
+				<!--					</Panel>-->
+				<Bar class="sapUiLargeMarginBegin">
+					<contentLeft>
+						<Button type="Success" press="OnSaveBtn" text="Save" id="Savebtn"></Button>
+						<Button type="Critical" press="OnCancelBtn " text="Cancel" id="Cancelbtn"></Button>
+					</contentLeft>
+				</Bar>
+			</content>
+			<footer>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button id="BtnGoodMov" text="Goods Movement" type="Emphasized" icon="sap-icon://enter-more" press="PerformGoodsMovment"></Button>
+					<Button id="BtnGenQA" text="Generate QA" type="Ghost" icon="sap-icon://survey" press="PerformQA"></Button>
+					<Button id="BtnGenPay" text="Generate Payment" type="Neutral" icon="sap-icon://money-bills" press="GeneratePayment"></Button>
+					<Button id="printGp" text="Print Gate Pass" icon="sap-icon://print" type="Emphasized" visible="false" press="printgp"></Button>
+				</Toolbar>
+			</footer>
+		</Page>
+	</pages>
+</App>
+</mvc:View>

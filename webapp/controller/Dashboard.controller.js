@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.Dashboard",{onInit:function(){},pressGPform:function(){var e=sap.ui.core.UIComponent.getRouterFor(this);e.navTo("Gate_Pass",{},true)},pressCancelTile:function(){var e=sap.ui.core.UIComponent.getRouterFor(this);e.navTo("Cancellation",{},true)},pressPrintTile:function(){var e=sap.ui.core.UIComponent.getRouterFor(this);e.navTo("PrintForm",{},true)}})});
+//# sourceMappingURL=Dashboard.controller.js.map

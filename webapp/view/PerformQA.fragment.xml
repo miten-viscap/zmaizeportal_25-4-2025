@@ -1,0 +1,172 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog id="QADialog" title="Perform QA">
+		<VBox class="sapUiSmallMargin">
+			<f:SimpleForm id="SimpleFormToolbar" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+				singleContainerFullSize="false" ariaLabelledBy="Title1">
+				<f:toolbar>
+					<Toolbar id="TB1">
+						<Title id="Title1" text="QA Entry"/>
+						<ToolbarSpacer/>
+						<!--<Button icon="sap-icon://edit-outside" press="OnEnableEditing"/>-->
+					</Toolbar>
+				</f:toolbar>
+				<f:content>
+					<Toolbar ariaLabelledBy="Title2">
+						<Title id="Title2" text="Quality Details"/>
+						<ToolbarSpacer/>
+						<!--	<Button icon="sap-icon://settings"/>-->
+					</Toolbar>
+					<Label id="QALabel1" design="Bold" visible="false" required="true"/>
+					<Input liveChange="positiveIp" id="QAip1" required="false" visible="false" type="Number"></Input>
+					<!--	<Text text="Nos." id="Num_Grain_Text" visible="false">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+					<Label id="QALabel2" design="Bold" visible="false" required="true"/>
+					<Input id="QAip2" visible="false" required="false" type="Number"/>
+					<!--<Text text="%" visible="false" id="Moist_Single_text">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+					<Label id="QALabel3" design="Bold" visible="false" required="true"/>
+					<Input id="QAip3" visible="false" required="false" type="Number"/>
+					<!--	<Text text="%" visible="false" id="Moist_Double_text">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+					<Label id="QALabel4" design="Bold" visible="false" required="true"/>
+					<Input id="QAip4" visible="false" required="false" type="Number"/>
+					<!--	<Text text="%" visible="false" id="QALabel4_txt">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+					<Label id="QALabel5" design="Bold" visible="false" required="true"/>
+					<Input id="QAip5" visible="false" required="false" type="Number"/>
+					<!--	<Text text="%" visible="false" id="QALabel5_txt">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+					<Label id="QALabel6" design="Bold" visible="false" required="true"/>
+					<Input id="QAip6" visible="false" required="false" type="Number"/>
+					<!--<Text text="%" visible="false" id="QALabel6_txt">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+					<Label id="QALabel7" design="Bold" visible="false" required="true"/>
+					<Input id="QAip7" visible="false" required="false" type="Number"/>
+					<!---->
+					<Text text="%" visible="false" id="QALabel7_txt">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>
+					<Label id="QALabel8" design="Bold" visible="false" required="true"/>
+					<Input id="QAip8" visible="false" required="false" type="Number"/>
+					<!--<Text text="%" visible="false" id="QALabel8_txt">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+					<Label id="QALabel9" design="Bold" visible="false" required="true"/>
+					<Input id="QAip9" visible="false" required="false" type="Number"/>
+					<Label id="QALabel10" design="Bold" visible="false" required="true"/>
+					<Input id="QAip10" visible="false" required="false" type="Number"/>
+					<!--<Text text="%" visible="false" id="QALabel9_txt">-->
+					<!--	<layoutData>-->
+					<!--		<l:GridData span="XL2 L1 M3 S4"/>-->
+					<!--	</layoutData>-->
+					<!--</Text>-->
+					<!--<Toolbar ariaLabelledBy="Title3">-->
+					<!--	<Title id="Title3" text="Amount"/>-->
+					<!--	<ToolbarSpacer/>-->
+					<!--			<Button icon="sap-icon://settings"/>-->
+					<!--</Toolbar>-->
+					<!--	<Label id="QALabel10" design="Bold" visible="false"/>
+					<Input id="unload_charges" visible="false"/>
+					<Text text="Rs./Mt " visible="false" id="QALabel10_txt">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>
+					<Label id="QALabel11" design="Bold" visible="false"/>
+					<Input id="cash_disc" visible="false"/>
+					<Text text="Rs./Mt " visible="false">
+						<layoutData>
+							<l:GridData span="XL2 L1 M3 S4"/>
+						</layoutData>
+					</Text>-->
+				</f:content>
+			</f:SimpleForm>
+		</VBox>
+		<!--	<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+			emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false"
+			ariaLabelledBy="Title1">
+			<f:content>
+				<Label text="No. of grain " design="Bold"/>
+				<Input width="10%"/>
+				<Text text="Nos."/>
+			</f:content>
+		</f:SimpleForm>-->
+		<!--	<HBox>
+				<Label text="Moisture Single " design="Bold"/>
+				<Input/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text="Moisture Double " design="Bold"/>
+				<Text text="85"/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text="Unmatured grains " design="Bold"/>
+				<Text text="4.2"/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text="Water damage " design="Bold"/>
+				<Text text="32.5"/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text="Weeviled damage " design="Bold"/>
+				<Text text="52.4"/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text="Broken " design="Bold"/>
+				<Text text="2.2"/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text="Dust " design="Bold"/>
+				<Text text="25"/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text=" Cobs " design="Bold"/>
+				<Text text="15"/>
+				<Text text="%" class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text=" Unloading charges " design="Bold"/>
+				<Text text="120"/>
+				<Text text="Rs./Mt " class="sapUiTinyMarginBegin"/>
+			</HBox>
+			<HBox>
+				<Label text=" Cash Discount " design="Bold"/>
+				<Text text="120"/>
+				<Text text="Rs./Mt " class="sapUiTinyMarginBegin"/>
+			</HBox>-->
+		<buttons>
+			<Button text="Confirm" type="Emphasized" press="onSubmitQADialog"/>
+			<Button text="Cancel" press="onCancelQADialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,16 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout"
+	controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.Toolbar" xmlns:html="http://www.w3.org/1999/xhtml">
+	<tnt:ToolHeader id="toolPage" class="hdr">
+		<Image src="Image/logo.png" class="dafflogo width" press="onHomePress">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Image>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Text text="Maize Procurement" class="toolbarfont"></Text>
+	</tnt:ToolHeader>
+</mvc:View>

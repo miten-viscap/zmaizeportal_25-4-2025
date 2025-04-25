@@ -1,0 +1,309 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+        "id": "MaizeProcurementPortal.MaizeProcurementPortal",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "sourceTemplate": {
+            "id": "servicecatalog.connectivityComponentForManifest",
+            "version": "0.0.0",
+            "toolsId": "a7b04315-28e7-4edc-bf2f-b0ffdfccf991"
+        },
+        "dataSources": {
+            "ZGW_GATEPASS_SRV": {
+                "uri": "/sap/opu/odata/sap/ZGW_GATEPASS_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/ZGW_GATEPASS_SRV/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "MaizeProcurementPortal.MaizeProcurementPortal.view.View1",
+            "type": "XML",
+            "async": true,
+            "id": "View1"
+        },
+        "dependencies": {
+            "minUI5Version": "1.48.1",
+            "libs": {
+                "sap.ui.layout": {},
+                "sap.ui.core": {},
+                "sap.m": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "MaizeProcurementPortal.MaizeProcurementPortal.i18n.i18n"
+                }
+            },
+            "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request"
+                },
+                "dataSource": "ZGW_GATEPASS_SRV",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "MaizeProcurementPortal.MaizeProcurementPortal.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "TargetView1",
+                    "pattern": "",
+                    "target": [
+                        "TargetView1"
+                    ]
+                },
+                {
+                    "name": "Dashboard",
+                    "pattern": "Dashboard",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Dashboard"
+                    ]
+                },
+                {
+                    "name": "Gate_Pass",
+                    "pattern": "Gate_Pass",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Gate_Pass"
+                    ]
+                },
+                {
+                    "name": "CreateGp",
+                    "pattern": "CreateGp",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "CreateGp"
+                    ]
+                },
+                {
+                    "name": "GPList",
+                    "pattern": "GPList/{invoicePath}/{invoicePath1}/{invoicePath2}/{invoicePath3}/{invoicePath5}/{invoicePath6}/{invoicePath7}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "GPList"
+                    ]
+                },
+                {
+                    "name": "IndividualGpScreen",
+                    "pattern": "IndividualGpScreen/{PoNumManifest}/{PlantNum}/{MatCode}/{POLineItem}/{ManiRate}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "IndividualGpScreen"
+                    ]
+                },
+                {
+                    "name": "ChanDispSelectScreen",
+                    "pattern": "ChanDispSelectScreen",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "ChanDispSelectScreen"
+                    ]
+                },
+                {
+                    "name": "ChanDispScreen",
+                    "pattern": "ChanDispScreen/{GPManifest}/{FlagChaDisp}/{SelMatCode}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "ChanDispScreen"
+                    ]
+                },
+                {
+                    "name": "ChaDispGpList",
+                    "pattern": "ChaDispGpList/{invoicePath}/{invoicePath1}/{invoicePath2}/{invoicePath3}/{invoicePath5}/{invoicePath6}/{invoicePath7}/{invoicePath8}/{invoicePath9}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "ChaDispGpList"
+                    ]
+                },
+                {
+                    "name": "Cancellation",
+                    "pattern": "Cancellation",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Cancellation"
+                    ]
+                },
+                {
+                    "name": "Cancel_GP",
+                    "pattern": "Cancel_GP",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Cancel_GP"
+                    ]
+                },
+                {
+                    "name": "Cancel_QA",
+                    "pattern": "Cancel_QA",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Cancel_QA"
+                    ]
+                },
+                {
+                    "name": "Cancel_Migo",
+                    "pattern": "Cancel_Migo",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Cancel_Migo"
+                    ]
+                },
+                {
+                    "name": "PrintForm",
+                    "pattern": "PrintForm",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "PrintForm"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetView1": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "",
+                    "viewName": "View1"
+                },
+                "Toolbar": {
+                    "viewType": "XML",
+                    "viewName": "Toolbar"
+                },
+                "Dashboard": {
+                    "viewType": "XML",
+                    "viewName": "Dashboard"
+                },
+                "Gate_Pass": {
+                    "viewType": "XML",
+                    "viewName": "Gate_Pass"
+                },
+                "CreateGp": {
+                    "viewType": "XML",
+                    "viewName": "CreateGp"
+                },
+                "GPList": {
+                    "viewType": "XML",
+                    "viewName": "GPList"
+                },
+                "IndividualGpScreen": {
+                    "viewType": "XML",
+                    "viewName": "IndividualGpScreen"
+                },
+                "ChanDispSelectScreen": {
+                    "viewType": "XML",
+                    "viewName": "ChanDispSelectScreen"
+                },
+                "ChanDispPO": {
+                    "viewType": "XML",
+                    "viewName": "ChanDispPO"
+                },
+                "ChanDispScreen": {
+                    "viewType": "XML",
+                    "viewName": "ChanDispScreen"
+                },
+                "PerformQA": {
+                    "viewType": "XML",
+                    "viewName": "PerformQA"
+                },
+                "ChaDispGpList": {
+                    "viewType": "XML",
+                    "viewName": "ChaDispGpList"
+                },
+                "Cancellation": {
+                    "viewType": "XML",
+                    "viewName": "Cancellation"
+                },
+                "Cancel_GP": {
+                    "viewType": "XML",
+                    "viewName": "Cancel_GP"
+                },
+                "Cancel_QA": {
+                    "viewType": "XML",
+                    "viewName": "Cancel_QA"
+                },
+                "Cancel_Migo": {
+                    "viewType": "XML",
+                    "viewName": "Cancel_Migo"
+                },
+                "PrintForm": {
+                    "viewType": "XML",
+                    "viewName": "PrintForm"
+                }
+            }
+        }
+    },
+    "sap.platform.hcp": {
+        "uri": "webapp",
+        "_version": "1.1.0"
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/zmaizeportal/webapp",
+        "_version": "1.1.0"
+    }
+}

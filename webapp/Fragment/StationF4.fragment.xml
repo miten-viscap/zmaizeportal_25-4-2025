@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Select Station" id="StationDialog" confirm="closeDlg" liveChange="livechangesearch" items="{StationModel>/results}">
+		<StandardListItem title="{StationModel>ST_CODE}" description="{StationModel>ST_NAME}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

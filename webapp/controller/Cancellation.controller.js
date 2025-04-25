@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/routing/History","sap/ui/core/UIComponent"],function(o,n,e){"use strict";return o.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.Cancellation",{onInit:function(){},onNavBack:function(){var o=e.getRouterFor(this);o.navTo("Dashboard")},CancelGp:function(){var o=e.getRouterFor(this);o.navTo("Cancel_GP")},CancelMigo:function(){var o=e.getRouterFor(this);o.navTo("Cancel_Migo")},CancelQA:function(){var o=e.getRouterFor(this);o.navTo("Cancel_QA")}})});
+//# sourceMappingURL=Cancellation.controller.js.map

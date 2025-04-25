@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:simpleform="sap.ui.layout.form">
+	<Dialog id="GoodsDialog" title="Perform Goods Movement">
+		<content>
+			<simpleform:SimpleForm class="sapUiSmallMarginTop" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+				emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" editable="true" layout="ResponsiveGridLayout">
+				<!--Fields for this Dialog box are pending-->
+				<Label text="Date" design="Bold"></Label>
+				<Text id="Goods_Date"></Text>
+				<Label text="Purchase Order No." design="Bold"></Label>
+				<Text id="Po_Num"></Text>
+				<Label text="Gatepass No." design="Bold"></Label>
+				<Text id="Gp_Num"></Text>
+				<Label text="Quantity (MT) " design="Bold"></Label>
+				<Text id="quantity_Num"></Text>
+				<Label text="No of Bags " design="Bold"></Label>
+				<Text id="Bags_Num"></Text>
+				<Label text="Storage location " design="Bold"></Label>
+				<Text id="Store_locDialog"></Text>
+			</simpleform:SimpleForm>
+		</content>
+		<buttons>
+			<Button text="Confirm MIGO" type="Emphasized" press="onSubmitGMDialog"/>
+			<Button text="Cancel" press="onCancelGmDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

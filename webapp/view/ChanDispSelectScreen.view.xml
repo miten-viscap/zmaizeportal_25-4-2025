@@ -1,0 +1,72 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:simpleform="sap.ui.layout.form"
+	controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.ChanDispSelectScreen" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Change/Display Gate Pass" showNavButton="true" navButtonPress="onNavBack" class="POBG">
+				<!--class="POBG"-->
+				<content>
+					<Panel>
+						<headerToolbar>
+							<OverflowToolbar height="3rem">
+								<Title text="Change/Display Gate Pass" class="labelGP"/>
+								<ToolbarSpacer/>
+							</OverflowToolbar>
+						</headerToolbar>
+						<simpleform:SimpleForm class="sapUiSmallMarginTop" id="id_register" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+							adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" editable="true"
+							layout="ResponsiveGridLayout">
+							<Label text="Plant" required="true" design="Bold"></Label>
+							<!--<Input id="plantnum" placeholder="Plant Number"></Input>-->
+							<ComboBox id="plantnum" showSecondaryValues="true" items="{ path: '/HT001wSet' }" filterSecondaryValues="true" change="LiveMatChange">
+								<core:ListItem key="{Werks}" text="{Werks}" additionalText="{Name1}"/>
+							</ComboBox>
+							<Label text=" Vendor Number" design="Bold"></Label>
+							<!--<Input id="VendorNum" placeholder="Enter Vendor Number"></Input>-->
+							<Input id="VendorNum" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpVendorNum" suggestionItems="{/KredaSet}">
+								<suggestionItems>
+									<core:ListItem text="{Lifnr}" additionalText="{Mcod1}"/>
+								</suggestionItems>
+							</Input>
+							<Label text="Purchase Order Date" design="Bold"></Label>
+							<!--<DatePicker id="POdate" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-ddThh:mm:ss" placeholder="Enter Purchase Order Date"></DatePicker>-->
+							<DatePicker id="FromPOdate" change="onFromdate" placeholder="From Purchase Order Date" displayFormat="dd/MM/yyyy"
+								valueFormat="yyyy-MM-ddThh:mm:ss"></DatePicker>
+							<DatePicker class="sapUiSmallmarginEnd" id="ToPOdate" placeholder="To Purchase Order Date" displayFormat="dd/MM/yyyy"
+								valueFormat="yyyy-MM-ddThh:mm:ss">
+								<!--<layoutData>
+											<l:GridData span="XL1 L2 M2 S4"/>
+										</layoutData>-->
+							</DatePicker>
+							<Label text="Material Code" design="Bold" required="true"></Label>
+							<!--<Input id="MatCode" placeholder="Enter Material Code"></Input>-->
+							<Input id="MatCode" autocomplete="false" selectedItem="LiveMatChange" change="LiveMatChange" showSuggestion="true" showValueHelp="true"
+								valueHelpRequest="onValueHelpMatNum" suggestionItems="{/Mat0mSet}">
+								<suggestionItems>
+									<core:ListItem text="{Matnr}" additionalText="{Maktg}"/>
+								</suggestionItems>
+							</Input>
+							<Label text=" PO Number" design="Bold"/>
+							<ComboBox id="POid" showSecondaryValues="true" items="{ path: '/PonumberSet' }" filterSecondaryValues="true">
+								<core:ListItem key="{Ebeln}" text="{Ebeln}" additionalText="{Bedat}"/></ComboBox>
+							<Label text="Gate Pass Number" design="Bold"/>
+							<!--<Input showSuggestion="false" id="GPnum" type="Number" placeholder="Enter Gate Pass Number"/>-->
+							<ComboBox id="GPnum" showSecondaryValues="true" items="{ path: '/GatepasslistSet' }" filterSecondaryValues="true">
+								<core:ListItem key="{Gpassno}" text="{Gpassno}" additionalText="{Gpassdt}"/></ComboBox>
+							<Label text="Gate Pass Date " design="Bold"/>
+							<DatePicker id="GPdate" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-ddThh:mm:ss" placeholder="Enter Gate Pass Date"></DatePicker>
+						</simpleform:SimpleForm>
+					</Panel>
+					<!--<FlexBox width="100%" height="100%" alignItems="Center" justifyContent="Center">
+						<items>-->
+					<Bar class="sapUiSmallMarginTop">
+						<contentMiddle>
+							<!--	<Button text="Create" type="Emphasized" icon="sap-icon://create-form" press="CreateGP"></Button>-->
+							<Button text="GP Details" type="Neutral" icon="sap-icon://write-new-document" press="ViewGPDetails"></Button>
+							<!--<Button text="Display" type="Emphasized" icon="sap-icon://vds-file" press="ChangeDispPO"></Button>-->
+						</contentMiddle>
+					</Bar>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

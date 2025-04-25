@@ -1,0 +1,145 @@
+/* Enter your custom styles here */
+
+
+/* Enter your custom styles here */
+
+.Dashboardpagecss {
+    border-top: 3px solid #427cac!important;
+    background-image: url("../Image/SAPScreen1.png");
+    background-position: center!important;
+    color: #011842!important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px -94px;
+}
+
+.GPConfig {
+    border-top: 4px solid #427cac!important;
+    /*border-top: 3px solid #427cac!important;
+     background-image: url("../Image/Dmart-logo.png");
+    background-repeat: no-repeat!important;*/
+    background-position: center!important;
+    background-image: url("../Image/BG2.jpg");
+    color: #011842!important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px -94px;
+}
+
+.wrapcss {
+    white-space: pre-line;
+    font-weight: 600!important;
+}
+
+.labelGP {
+    font-weight: 900;
+    color: white;
+    font-size: 20px;
+}
+
+.printbg {
+    border-top: 4px solid #427cac!important;
+    background-image: linear-gradient(60deg, #ffffe0, #add8e6);
+}
+
+.CancelGPbg {
+    border-top: 4px solid #427cac!important;
+    background-image: radial-gradient( circle at top, white, #d8f6ff 50%);
+}
+
+.cancelMigobg {
+    border-top: 4px solid #427cac!important;
+    background-image: url("../Image/vb.jpg");
+    background-position: center!important;
+    color: #011842!important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /*background-image: linear-gradient(60deg, #ffffe0, #add8e6);*/
+}
+
+.cancelQAbg {
+    border-top: 4px solid #427cac!important;
+    background-image: radial-gradient(circle, white, #d9f4fc);
+}
+
+.GPList {
+    border-top: 4px solid #427cac!important;
+    /*background-image: linear-gradient(-150deg, #B2EBF2, #FAFAFA);*/
+    background-image: url("../Image/pbg.jpg");
+    background-repeat: no-repeat;
+}
+
+.cancelcss {
+    border-top: 4px solid #427cac!important;
+    background-image: url("../Image/cancel.jpg");
+    background-repeat: no-repeat;
+}
+
+.chandisp {
+    border-top: 4px solid #427cac!important;
+    background-image: url("../Image/chadispsc.jpg");
+    background-repeat: no-repeat;
+}
+
+.chadisplistcss {
+    border-top: 4px solid #427cac!important;
+    background-image: url("../Image/chadisp.jpg");
+    background-repeat: no-repeat;
+}
+
+.maizePO {
+    border-top: 4px solid #427cac!important;
+  /*  background-image: url("../Image/bbv.jpg");
+    background-repeat: no-repeat;*/
+}
+
+.txtcolor .sapMPanelHdr {
+    color: white!important;
+}
+
+.ChaDispPO {
+    background-image: url("../Image/bg45.jpg");
+    background-repeat: no-repeat;
+}
+
+.POBG {
+    border-top: 4px solid #427cac!important;
+    background-image: url("../Image/pic1.jpg");
+    background-repeat: no-repeat;
+    /* border-top: 3px solid #427cac!important;
+    background-image: url("../Image/BG41.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px -94px;*/
+}
+
+.dafflogo {
+    background-color: none;
+    border: none;
+    margin-left: 10px !important;
+    height: 50px;
+}
+
+.width .sapMBtnInner .sapMBtnIcon.sapMImg {
+    height: 2.375rem;
+    max-width: 200px;
+    width: max-content;
+}
+
+.sapTntToolHeader.sapMText {
+    color: chocolate !important;
+}
+
+.sapTntToolHeader.sapMTB {
+    background-color: white !important;
+    color: blue !important;
+    height: 4rem !important;
+}
+
+.hdr .sapMBtn.dafflogo,
+.hdr .sapMBtn.dafflogo .sapMBtnInner,
+.hdr .sapMBtn.dafflogo .sapMBtnInner .sapMImg,
+.hdr .sapMBtn.dafflogo .sapMBtnInner .sapMImg .dafflogo {
+    height: 3.5rem !important;
+    max-height: 3.5rem !important;
+}

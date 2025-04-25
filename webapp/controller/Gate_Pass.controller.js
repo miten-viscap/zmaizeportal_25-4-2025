@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/routing/History","sap/ui/core/UIComponent"],function(e,r,t){"use strict";return e.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.Gate_Pass",{onInit:function(){},onNavBack:function(){var e=t.getRouterFor(this);e.navTo("TargetView1")},presCreateGp:function(){var e=t.getRouterFor(this);e.navTo("CreateGp")},pressCHaDelGp:function(){var e=t.getRouterFor(this);e.navTo("ChanDispSelectScreen")}})});
+//# sourceMappingURL=Gate_Pass.controller.js.map

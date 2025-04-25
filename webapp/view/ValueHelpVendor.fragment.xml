@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog id="dialogvend">
+		<Table items="{path: '/KredaSet'}" backgroundDesign="Transparent" contextualWidth="Auto" class="sapUiSmallMarginTop" growing="true">
+			<headerToolbar>
+				<OverflowToolbar>
+					<Title text="Value Help Vendor Number" level="H2"/>
+					<ToolbarSpacer/>
+					<Button icon="sap-icon://decline" type="Transparent" press="cancelvend"></Button>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column demandPopin="false">
+					<Text text="Vendor Number " class="wrapcss"></Text>
+				</Column>
+				<Column>
+					<Text text="Country Key" class="wrapcss"></Text>
+				</Column>
+				<Column>
+					<Text text="Portal Code" class="wrapcss"></Text>
+				</Column>
+				<Column>
+					<Text text="City" class="wrapcss"></Text>
+				</Column>
+				<Column>
+					<Text text=" Name1" class="wrapcss"></Text>
+				</Column>
+				<Column>
+					<Text text="Search Term" class="wrapcss"></Text>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem press="ValueHelpVendor" type="Active">
+					<cells>
+						<Text text="{Lifnr}"/>
+						<Text text="{Land1}"></Text>
+						<Text text="{Pstlz}"></Text>
+						<Text text="{Mcod3}"></Text>
+						<Text text="{Mcod1}"></Text>
+						<Text text="{Sortl}"></Text>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,59 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:simpleform="sap.ui.layout.form"
+	controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.GPList" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Open Purchase Order List" showNavButton="true" navButtonPress="onNavBack" class="GPList">
+				<content>
+					<Table items="{ path: '/polistSet'}" backgroundDesign="Transparent" contextualWidth="Auto" id="POList" class="sapUiSmallMarginTop "
+						growing="true">
+						<!--items="{ path: '/polistSet'}"-->
+						<columns>
+							<Column demandPopin="false" minScreenWidth="400px" hAlign="Center">
+								<Text text="Purchase Order No. " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="PO line Item No. " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Vendor " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="PO Date" class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Total Quantity " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Open GP Quantity " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Open MIGO Quantity " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Rate " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Create Gate Pass " class=" wrapcss"></Text>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{Ebeln}"></Text>
+									<Text text="{Ebelp}"></Text>
+									<Text text="{Lifnr}"></Text>
+									<Text text="{Bedat}"></Text>
+									<Text text="{Menge}"></Text>
+									<Text text="{OpenQttyGp}"></Text>
+									<Text text="{OpenQttyMigo}"></Text>
+									<Text text="{Netpr}"></Text>
+									<Button icon="sap-icon://add-product" press="CreatePO" width="50px"></Button>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

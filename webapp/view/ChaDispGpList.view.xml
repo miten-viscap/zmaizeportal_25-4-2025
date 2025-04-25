@@ -1,0 +1,60 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.ChaDispGpList" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Gate Pass List" showNavButton="true" navButtonPress="onNavBack" class="chadisplistcss">
+				<content>
+					<Table items="{ path: '/GatepasslistSet'}" backgroundDesign="Transparent" contextualWidth="Auto" id="GPList" class="sapUiSmallMarginTop "
+						growing="true">
+						<!--items="{ path: '/polistSet'}"-->
+						<columns>
+							<Column demandPopin="false" minScreenWidth="400px" hAlign="Center">
+								<Text text="Gate Pass No." class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Vendor No." class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Plant No." class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Material No." class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Gate Pass Date " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Purchase Order No. " class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Quantity" class="wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Change Gate Pass " class=" wrapcss"></Text>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Display Gate Pass " class=" wrapcss"></Text>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{Gpassno}"></Text>
+									<Text text="{Vendorno}"></Text>
+									<Text text="{Werks}"></Text>
+									<Text text="{Matnr}"></Text>
+									<Text text="{Gpassdt}"></Text>
+									<!--<Text text=" { path: 'Gpassdt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy'}}"></Text>-->
+									<Text text="{Ebeln}"></Text>
+									<Text text="{Bilwt}"></Text>
+									<Button icon="sap-icon://add-product" press="ChangeGP" width="50px"></Button>
+									<Button icon="sap-icon://display" press="DisplayGP" width="50px" type="Transparent"></Button>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

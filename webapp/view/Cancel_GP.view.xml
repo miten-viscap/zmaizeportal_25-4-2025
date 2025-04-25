@@ -1,0 +1,23 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:simpleform="sap.ui.layout.form"
+	controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.Cancel_GP" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Cancellation Gate Passs Screen" showNavButton="true" navButtonPress="onNavBack" class="CancelGPbg">
+				<content>
+					<simpleform:SimpleForm class="sapUiSmallMarginTop" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+						emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" editable="true" layout="ResponsiveGridLayout">
+						<Label text="Gate Pass Number" required="true"></Label>
+						<Input liveChange="NumbValid" id="Gp_num" type="Number"></Input>
+						<!--<ComboBox id="Gp_num" showSecondaryValues="true" items="{ path: '/GatepasshelpSet' }" filterSecondaryValues="true">-->
+						<!--	<core:ListItem key="{Gpassno}" text="{Gpassno}" additionalText="{Gpassdt}"/></ComboBox>-->
+					</simpleform:SimpleForm>
+					<Bar>
+						<contentMiddle>
+							<Button text="Cancel Gate Pass" press="Cancel_gp" type="Emphasized"></Button>
+						</contentMiddle>
+					</Bar>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
