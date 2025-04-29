@@ -8,7 +8,7 @@ sap.ui.define([
 ], function (Controller, History, UIComponent, PDFViewer, MessageBox, BusyIndicator) {
 	"use strict";
 	var oModel;
-
+	var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
 	return Controller.extend("MaizeProcurementPortal.MaizeProcurementPortal.controller.PrintForm", {
 
 		/**
@@ -18,7 +18,7 @@ sap.ui.define([
 		 */
 		onInit: function () {
 			var serviceURl = "/sap/opu/odata/sap/ZGW_GATEPASS_SRV/";
-			oModel = new sap.ui.model.odata.ODataModel(serviceURl);
+			oModel = new sap.ui.model.odata.ODataModel(serviceURl, { json: true });
 			this.getView().setModel(oModel);
 
 			this._pdfViewer = new PDFViewer();
@@ -156,12 +156,12 @@ sap.ui.define([
 						// that._pdfViewer.setSource(img);
 						// that._pdfViewer.setTitle("Payment Requisition Slip " + Gp_num);
 						// that._pdfViewer.open();
-						resolve(true);
+						resolve(false);
 
 					},
 					error: function (cc, vv) {
-						sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
-						resolve(false);
+						// sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
+						resolve(cc);
 					}
 
 				});
@@ -199,8 +199,31 @@ sap.ui.define([
 						that._printVoucherPromise(aGPNumber[j], FormName)
 					)
 				}
+				var msg = "<p><strong>Failed to print vouchers for:</strong></p>" +
+					"<ul>";
 				await Promise.all(aPrintPromises).then((printVoucher) => {
-					console.log(printVoucher);		
+					console.log(printVoucher);
+					if (printVoucher.length) {
+						for (const resp of printVoucher) {
+							if (resp) {
+								let error = JSON.parse(resp?.response?.body);
+								let errorMsg = error.error.message.value;
+								msg = msg + `<li>${errorMsg}</li>`
+							}
+						}
+						let bDisplayError = printVoucher.some(item => item);
+
+						if (bDisplayError) {
+							MessageBox.error("Unable to load data.", {
+								title: "Error",
+								id: "messageBoxId2",
+								details: msg + "</ul>",
+								contentWidth: "100px",
+								styleClass: sResponsivePaddingClasses,
+								dependentOn: this.getView()
+							});
+						}
+					}
 					BusyIndicator.hide();
 				})
 
@@ -214,8 +237,30 @@ sap.ui.define([
 						that._printVoucherPromise(aGPNumber[j], FormName)
 					)
 				}
+				var msg = "<p><strong>Failed to print vouchers for:</strong></p>" +
+					"<ul>";
 				await Promise.all(aPrintPromises).then((printVoucher) => {
 					console.log(printVoucher);
+					if (printVoucher.length) {
+						for (const resp of printVoucher) {
+							if (resp) {
+								let error = JSON.parse(resp?.response?.body);
+								let errorMsg = error.error.message.value;
+								msg = msg + `<li>${errorMsg}</li>`
+							}
+						}
+						let bDisplayError = printVoucher.some(item => item);
+						if (bDisplayError) {
+							MessageBox.error("Unable to load data.", {
+								title: "Error",
+								id: "messageBoxId2",
+								details: msg + "</ul>",
+								contentWidth: "100px",
+								styleClass: sResponsivePaddingClasses,
+								dependentOn: this.getView()
+							});
+						}
+					}
 					BusyIndicator.hide();
 				})
 			}

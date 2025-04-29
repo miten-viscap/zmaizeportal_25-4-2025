@@ -17,7 +17,7 @@ sap.ui.define([
 		 */
 		onInit: function () {
 			var serviceURl = "/sap/opu/odata/sap/ZGW_GATEPASS_SRV/";
-			oModel = new sap.ui.model.odata.ODataModel(serviceURl);
+			oModel = new sap.ui.model.odata.ODataModel(serviceURl,{json:true});
 			this.getView().setModel(oModel);
 			oModel.setSizeLimit(5000);
 			this.AutoFillDetails();
@@ -40,8 +40,14 @@ sap.ui.define([
 					oThis.LiveMatChange();
 
 				},
-				error: function (cc, vv) {
-					sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
+					error: function (cc, vv) { 
+						console.log("READ userset error", cc);
+						let errorMsg = JSON.parse(cc?.response?.body);
+						if(errorMsg){
+							sap.m.MessageToast.show(errorMsg.error.message.value);
+						} else {
+							sap.m.MessageToast.show("Something went wrong.");
+						}
 
 				}
 

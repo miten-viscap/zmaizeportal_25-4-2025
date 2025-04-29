@@ -122,8 +122,8 @@ controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.ChanDis
 				<!--					</Panel>-->
 				<Bar class="sapUiLargeMarginBegin">
 					<contentLeft>
-						<Button type="Success" press="OnSaveBtn" text="Save" id="Savebtn"></Button>
-						<Button type="Critical" press="OnCancelBtn " text="Cancel" id="Cancelbtn"></Button>
+						<Button press="OnSaveBtn" text="Save" id="Savebtn"></Button>
+						<Button press="OnCancelBtn " text="Cancel" id="Cancelbtn"></Button>
 					</contentLeft>
 				</Bar>
 			</content>
@@ -132,7 +132,7 @@ controllerName="MaizeProcurementPortal.MaizeProcurementPortal.controller.ChanDis
 					<ToolbarSpacer/>
 					<Button id="BtnGoodMov" text="Goods Movement" type="Emphasized" icon="sap-icon://enter-more" press="PerformGoodsMovment"></Button>
 					<Button id="BtnGenQA" text="Generate QA" type="Ghost" icon="sap-icon://survey" press="PerformQA"></Button>
-					<Button id="BtnGenPay" text="Generate Payment" type="Neutral" icon="sap-icon://money-bills" press="GeneratePayment"></Button>
+					<Button id="BtnGenPay" text="Generate Payment" type="Ghost" icon="sap-icon://money-bills" press="GeneratePayment"></Button>
 					<Button id="printGp" text="Print Gate Pass" icon="sap-icon://print" type="Emphasized" visible="false" press="printgp"></Button>
 				</Toolbar>
 			</footer>
