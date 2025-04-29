@@ -50,6 +50,13 @@ sap.ui.define([
 
 				},
 				error: function (cc, vv) {
+					console.log("READ userset error", cc);
+						let errorMsg = JSON.parse(cc?.response?.body);
+						if(errorMsg){
+							sap.m.MessageToast.show(errorMsg.error.message.value);
+						} else {
+							sap.m.MessageToast.show("Something went wrong.");
+						}
 					sap.m.MessageToast.show("Somthing is wrong. Please contact your Backend Administrator");
 
 				}

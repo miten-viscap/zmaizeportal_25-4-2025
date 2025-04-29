@@ -125,8 +125,8 @@
 					<!--					</Panel>-->
 					<Bar class="sapUiLargeMarginBegin">
 						<contentLeft>
-							<Button type="Success" press="OnSaveBtn" text="Save" id="GPSave"></Button>
-							<Button type="Critical" press="OnCancelBtn " text="Cancel" id="GpCancel"></Button>
+							<Button press="OnSaveBtn" text="Save" id="GPSave"></Button>
+							<Button press="OnCancelBtn" text="Cancel" id="GpCancel"></Button>
 						</contentLeft>
 					</Bar>
 				</content>
@@ -135,7 +135,7 @@
 						<ToolbarSpacer/>
 						<Button id="BtnGoodMov" visible="false" text="Goods Movement" type="Emphasized" icon="sap-icon://enter-more" press="PerformGoodsMovment"></Button>
 						<Button id="BtnGenQA" visible="false" text="Generate QA" type="Ghost" icon="sap-icon://survey" press="PerformQA"></Button>
-						<Button id="BtnGenPay" visible="false" text="Generate Payment" type="Neutral" icon="sap-icon://money-bills" press="GeneratePayment"></Button>
+						<Button id="BtnGenPay" visible="false" text="Generate Payment" type="Ghost" icon="sap-icon://money-bills" press="GeneratePayment"></Button>
 					</Toolbar>
 				</footer>
 			</Page>

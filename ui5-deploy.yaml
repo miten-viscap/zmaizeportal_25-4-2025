@@ -19,7 +19,7 @@ builder:
           client: '800'
         app:
           name: ZMAIZEPORTAL
-          package: ZMAIZE1
-          transport: DEVK906771
+          package: ZMAIZE2
+          transport: DEVK906781
         exclude:
           - /test/
