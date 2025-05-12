@@ -105,7 +105,7 @@ sap.ui.define([
 				var MatCode = this.byId("MatCode");
 				var MatCodeVal = MatCode.getValue();
 				var PONumVal = this.byId("POid").getSelectedKey();
-				var GPNum = this.byId("GPnum").getSelectedKey();
+				var GPNum = this.byId("GPnum").getValue();
 				var GpDate = this.byId("GPdate").getValue();
 
 				var Zeroval = "000000000000";
